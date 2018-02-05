@@ -14,11 +14,11 @@ class Elements extends Component
             'index' => [
                 'caption' => 'Home',
                 'action' => 'index'
-            ],
+            ],      
             'projects' => [
                 'caption' => 'Projects',
                 'action' => 'index'
-            ],
+            ],          
             'about' => [
                 'caption' => 'About',
                 'action' => 'index'
@@ -26,13 +26,13 @@ class Elements extends Component
             'contact' => [
                 'caption' => 'Contact',
                 'action' => 'index'
-            ],
+            ]
         ],
         'right' => [
             'session' => [
                 'caption' => 'Log In/Sign Up',
                 'action' => 'index'
-            ],
+            ]
         ]
     ];
 
@@ -74,12 +74,12 @@ class Elements extends Component
 
         $auth = $this->session->get('auth');
         if ($auth) {
-            $this->_headerMenu['item']['session'] = [
+            $this->_headerMenu['right']['session'] = [
                 'caption' => 'Log Out',
                 'action' => 'end'
             ];
         } else {
-            unset($this->_headerMenu['item']['invoices']);
+            unset($this->_headerMenu['left']['projects']);
         }
 
         $controllerName = $this->view->getControllerName();
@@ -89,9 +89,9 @@ class Elements extends Component
             }    
             foreach ($menu as $controller => $option) {
                 if ($controllerName == $controller) {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller : '', $option['caption'], 'class' => 'active item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . '/' . ($controller == 'session' ? $option['action'] : '') : '', $option['caption'], 'class' => 'active item']);
                 } else {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller : '', $option['caption'], 'class' => 'item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . '/' . ($controller == 'session' ? $option['action'] : '') : '', $option['caption'], 'class' => 'item']);
                 }
             }
             if ($position == 'right') {
@@ -134,4 +134,5 @@ class Elements extends Component
         }
         echo '</ul>';
     }
+    
 }

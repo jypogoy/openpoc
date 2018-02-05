@@ -50,7 +50,7 @@ class SecurityPlugin extends Plugin
 				'products'     => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
 				'producttypes' => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
 				'invoices'     => ['index', 'profile'],
-				'projects'	   => ['index']	
+				'projects'	   => ['index']
 			];
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Resource($resource), $actions);
@@ -128,7 +128,7 @@ class SecurityPlugin extends Plugin
 				'controller' => 'errors',
 				'action'     => 'show401'
 			]);
-                        $this->session->destroy();
+            $this->session->destroy();
 			return false;
 		}
 	}

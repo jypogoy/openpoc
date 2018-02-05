@@ -2,8 +2,8 @@
 
 <form id="sortForm" action="projects" method="post">
             
-    {{ hidden_field("sortField", "value" : sortField) }}
-    {{ hidden_field("sortDirection", "value" : sortDirection) }}    
+    <?= $this->tag->hiddenField(['sortField', 'value' => $sortField]) ?>
+    <?= $this->tag->hiddenField(['sortDirection', 'value' => $sortDirection]) ?>    
 
 </form>  
 
@@ -18,23 +18,23 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in page.items %}
+        <?php $v34436267661iterated = false; ?><?php foreach ($page->items as $item) { ?><?php $v34436267661iterated = true; ?>
         <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.description }}</td>
+            <td><?= $item->name ?></td>
+            <td><?= $item->description ?></td>
             <td><span class="label label-success">Active</span></td>
         </tr>
-        {% else %}
+        <?php } if (!$v34436267661iterated) { ?>
             No products to show...
-        {% endfor %}
+        <?php } ?>
     </tbody>
     <tfoot>
         <tr>
             <th colspan="4">
-                {{ listing.getPagination(page, start, end, totalItems, currentPage) }}                                        
+                <?= $this->listing->getPagination($page, $start, $end, $totalItems, $currentPage) ?>                                        
             </th>
         </tr>
     </tfoot>
 </table>
 
-{{ javascript_include('js/projects.js') }}
+<?= $this->tag->javascriptInclude('js/projects.js') ?>

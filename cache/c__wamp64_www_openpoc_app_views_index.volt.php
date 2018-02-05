@@ -5,16 +5,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        {{ get_title() }}
-        {{ stylesheet_link('css/bootstrap.min.css') }}
-        {{ stylesheet_link('semantic/semantic.min.css') }}
-        {{ stylesheet_link('css/app.css') }}
+        <?= $this->tag->getTitle() ?>
+        <?= $this->tag->stylesheetLink('css/bootstrap.min.css') ?>
+        <?= $this->tag->stylesheetLink('semantic/semantic.min.css') ?>
+        <?= $this->tag->stylesheetLink('css/app.css') ?>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
     </head>
     <body>
-        {{ content() }}
-        {{ javascript_include('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js') }}
-        {{ javascript_include('semantic/semantic.min.js') }}
+        <?= $this->getContent() ?>
+        <?= $this->tag->javascriptInclude('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js') ?>
+        <?= $this->tag->javascriptInclude('semantic/semantic.min.js') ?>
     </body>
 </html>
 

@@ -1,10 +1,22 @@
 .ui.menu .item img.logo {
     margin-right: 1em;
 }
+
 .main.container {
     margin-top: 7em;
 }
+
 .ui.footer.segment {
     margin: 5em 0em 0em;
     padding: 5em 0em;
 }
+
+/* Semantic UI: To avoid modal strech until the bottom of the screen. */
+.modal { 
+    bottom: auto; 
+}
+
+/* .active.paging {
+    color:#ffffff !important;
+    background-color: #3d6eb9 !important;
+} */

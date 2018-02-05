@@ -12,7 +12,7 @@ return new \Phalcon\Config([
         'host'        => 'localhost',
         'username'    => 'root',
         'password'    => 'root01',
-        'dbname'      => 'openwms',
+        'dbname'      => 'agiledev',
         'charset'     => 'utf8',
     ],
     'application' => [

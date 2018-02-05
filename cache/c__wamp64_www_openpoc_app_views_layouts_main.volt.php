@@ -2,12 +2,12 @@
     <a href="#" class="header item">
         <img class="logo" src="/openpoc/public/img/logo.png"> OPENPOC PM
     </a>
-    {{ elements.getMenu() }}
+    <?= $this->elements->getMenu() ?>
 </nav>
 
 <div class="ui main stackable container">
-    {{ flash.output() }}
-    {{ content() }}    
+    <?= $this->flash->output() ?>
+    <?= $this->getContent() ?>    
     <footer>
         <p>&copy; The OPENPOC Collection 2018</p>
     </footer>

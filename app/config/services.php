@@ -138,3 +138,7 @@ $di->setShared('session', function () {
 $di->set('elements', function () {
     return new Elements();
 });
+
+$di->set('listing', function () {
+    return new Listing();
+});
