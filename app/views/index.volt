@@ -9,11 +9,14 @@
         {{ stylesheet_link('css/bootstrap.min.css') }}
         {{ stylesheet_link('semantic/semantic.min.css') }}
         {{ stylesheet_link('css/app.css') }}
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url('img/favicon.ico') }}"/>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
+        {{ javascript_include('js/jquery-3.3.1.min.js') }}        
         {{ content() }}
-        {{ javascript_include('https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js') }}
         {{ javascript_include('semantic/semantic.min.js') }}
     </body>
 </html>

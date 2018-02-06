@@ -89,9 +89,9 @@ class Elements extends Component
             }    
             foreach ($menu as $controller => $option) {
                 if ($controllerName == $controller) {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller . '/' . ($controller == 'session' ? $option['action'] : '') : '', $option['caption'], 'class' => 'active item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', $option['caption'], 'class' => 'active item']);
                 } else {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller . '/' . ($controller == 'session' ? $option['action'] : '') : '', $option['caption'], 'class' => 'item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', $option['caption'], 'class' => 'item']);
                 }
             }
             if ($position == 'right') {

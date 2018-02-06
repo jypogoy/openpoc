@@ -2,11 +2,13 @@ $(function() {
     
     $('.loader').fadeOut();
 
-    $('#searchForm').form({});
+    $('.ui.dropdown').dropdown();
 
-    $('#resetBtn').click(function() {
+    $('#listForm').form({});
+
+    $('#resetBtn').click(function () {
         $('#fieldKeyword').val('');
-        $('#searchForm').submit();
+        $('#listForm').submit();
     });
 
 });
@@ -34,5 +36,5 @@ function del(id, name) {
 function sort(sortField, sortDirection) {
     $('#sortField').val(sortField);
     $('#sortDirection').val(sortDirection);
-    $('#sortForm').submit();
+    $('#listForm').submit();
 }

@@ -1,3 +1,8 @@
+body {
+    background-image: url("../img/bg/crossword.png");
+    /* background-color: #cccccc; */
+ }
+
 .ui.menu .item img.logo {
     margin-right: 1em;
 }
@@ -20,3 +25,38 @@
     color:#ffffff !important;
     background-color: #3d6eb9 !important;
 } */
+
+.pagination a {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400 !important;
+    size: 12px;
+    color: #666666 !important;
+}
+
+.ui.table thead th {
+    background: #eff0f1;
+}
+
+table thead tr th {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 400 !important;
+    /* color: #666666 !important; */
+}
+
+table tfoot tr th {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 400 !important;
+    size: 12px;
+    color: #666666 !important;
+}
+
+table tbody tr td, table tfoot tr th {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    size: 12px;
+    color: #292929;
+}

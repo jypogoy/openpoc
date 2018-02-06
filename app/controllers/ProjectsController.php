@@ -6,7 +6,8 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 class ProjectsController extends ControllerBase
 {
 
-    const ITEMS_PER_PAGE = 15;    
+    const DEFAULT_PAGE = 1;
+    const ITEMS_PER_PAGE = 10;    
     const DEFAULT_SORT_FIELD = 'name';
     const DEFAULT_SORT_DIRECTION = 'ASC';
 
@@ -20,26 +21,46 @@ class ProjectsController extends ControllerBase
     {
         $this->persistent->parameters = null;
         $itemsPerPage = self::ITEMS_PER_PAGE;
-        $currentPage = 1;
+        $currentPage = self::DEFAULT_PAGE;
         $keyword = null;
         $sortField = null;
         $sortDirection = null;
 
         $projects = array();
-        
+        $currentSelected = 0;
         if ($this->request->isPost()) {
+            $currentPage = trim($this->request->getPost("currentPage")) != '' ? $this->request->getPost("currentPage") : $currentPage; 
+            $itemsPerPage = trim($this->request->getPost("itemsPerPage")) != '' ? $this->request->getPost("itemsPerPage") : $itemsPerPage;
             $keyword = $this->request->getPost("keyword");
             $sortField = trim($this->request->getPost("sortField")) != '' ? $this->request->getPost("sortField") : $sortField;
-            $sortDirection = trim($this->request->getPost("sortDirection")) != '' ? $this->request->getPost("sortDirection") : $sortDirection;
+            $sortDirection = trim($this->request->getPost("sortDirection")) != '' ? $this->request->getPost("sortDirection") : $sortDirection;               
+             
+            if (strlen($currentPage) > 0) {                
+                if ($this->session->get('page') != $currentPage) {
+                    $this->session->set('page', $currentPage);
+                }                        
+            } else {                
+                $currentPage = self::DEFAULT_PAGE;
+                $this->session->set('page', $currentPage);
+            } 
 
-            if (strlen($keyword) > 0) {
-                $this->session->set('page', 1);      
+            if (strlen($itemsPerPage) > 0) {                
+                if ($this->session->get('itemsPerPage') != $itemsPerPage) {
+                    $this->session->set('itemsPerPage', $itemsPerPage);
+                }                        
+            } else {                
+                $itemsPerPage = self::ITEMS_PER_PAGE;
+                $this->session->set('itemsPerPage', $itemsPerPage);
+            } 
+
+            if (strlen($keyword) > 0) {                
                 if ($this->session->get('keyword') != $keyword) {
                     $this->session->set('keyword', $keyword);
                 }                        
             } else {                
                 $this->session->set('keyword', null);
             }   
+
             if (strlen($sortField) > 0) {
                 if ($this->session->get('sortField') != $sortField) {
                     $this->session->set('sortField', $sortField);
@@ -48,6 +69,7 @@ class ProjectsController extends ControllerBase
                 $sortField = self::DEFAULT_SORT_FIELD;
                 $this->session->set('sortField', $sortField);
             }    
+
             if (strlen($sortDirection) > 0) {
                 if ($this->session->get('sortDirection') != $sortDirection) {
                     $this->session->set('sortDirection', $sortDirection);
@@ -58,6 +80,17 @@ class ProjectsController extends ControllerBase
             }    
 
         } else {
+            if (strlen($itemsPerPage) > 0) {
+                $this->session->set('itemsPerPage', $itemsPerPage);
+            } else {
+                if ($this->session->get('itemsPerPage') != null) {
+                    $itemsPerPage = $this->session->get('itemsPerPage');
+                } else {
+                    $itemsPerPage = self::ITEMS_PER_PAGE;
+                    $this->session->set('itemsPerPage', $itemsPerPage);
+                }
+            }
+
             if (strlen($keyword) > 0) {
                 $this->session->set('keyword', $keyword);                
             } else {
@@ -65,6 +98,7 @@ class ProjectsController extends ControllerBase
                     $keyword = $this->session->get('keyword');
                 }
             }
+
             if (strlen($sortField) > 0) {
                 $this->session->set('sortField', $sortField);
             } else {
@@ -75,6 +109,7 @@ class ProjectsController extends ControllerBase
                     $this->session->set('sortField', $sortField);
                 }
             }
+
             if (strlen($sortDirection) > 0) {
                 $this->session->set('sortDirection', $sortDirection);
             } else {
@@ -94,17 +129,17 @@ class ProjectsController extends ControllerBase
         $parameters["conditions"] = "name LIKE '%" . $keyword . "%' OR description LIKE '%" . $keyword . "%'";
         $parameters["order"] = $sortField . ' ' . $sortDirection;        
 
-        if ($this->session->get('page') !== null) {
-            if ($this->request->getQuery('page', 'int') !== null) {
-                $currentPage = $this->request->getQuery('page', 'int');
-                $this->session->set('page', $currentPage);
-            } else {
-                $currentPage = $this->session->get('page');
-            }
-        } else {
-            $currentPage = $this->request->getQuery('page', 'int');
-            $this->session->set('page', $currentPage);
-        }
+        // if ($this->session->get('page') !== null) {
+        //     if ($this->request->getQuery('page', 'int') !== null) {
+        //         $currentPage = $this->request->getQuery('page', 'int');
+        //         $this->session->set('page', $currentPage);
+        //     } else {
+        //         $currentPage = $this->session->get('page');
+        //     }
+        // } else {
+        //     $currentPage = $this->request->getQuery('page', 'int');
+        //     $this->session->set('page', $currentPage);
+        // }
         
         try {
             // The data set to paginate
@@ -114,7 +149,11 @@ class ProjectsController extends ControllerBase
             $this->flash->error($e->getMessage());
         }
         
+        $totalItems = count($projects);
+
         // Create a Model paginator, show number of rows by page starting from $currentPage
+        $paginator = null;
+        $itemsPerPage = $itemsPerPage > -1 ? $itemsPerPage : $totalItems;
         $paginator = new Paginator([
             'data' => $projects,
             'limit'=> $itemsPerPage,
@@ -123,8 +162,7 @@ class ProjectsController extends ControllerBase
 
         // Get the paginated results
         $page = $paginator->getPaginate();
-
-        $totalItems = count($projects);
+        
         $start = ($page->current - 1) * $itemsPerPage + 1;
         $end = $totalItems;
 
@@ -135,6 +173,7 @@ class ProjectsController extends ControllerBase
             }
         }
 
+        $this->view->itemsPerPage = $itemsPerPage;
         $this->view->keyword = $keyword;
         $this->view->sortField = $sortField;
         $this->view->sortDirection = $sortDirection;
