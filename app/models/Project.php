@@ -46,7 +46,7 @@ class Project extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("agiledev");
-        $this->setSource("Project");
+        $this->setSource("project");
     }
 
     /**
@@ -56,7 +56,7 @@ class Project extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'Project';
+        return 'project';
     }
 
     /**

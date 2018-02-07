@@ -1,15 +1,14 @@
 <nav class="ui fixed menu">
     <a href="#" class="header item">
-        <img class="logo" src="img/logo.png"> OPENPOC
+        <img class="logo" src="/openpoc/public/img/logo.png"> OPENPOC PM
     </a>
     <?= $this->elements->getMenu() ?>
 </nav>
 
-<div class="ui main text container">
+<div class="ui main stackable container">
     <?= $this->flash->output() ?>
-    <?= $this->getContent() ?>
-    <hr>
+    <?= $this->getContent() ?>    
     <footer>
-        <p>&copy; Company 2017</p>
+        <p>&copy; The OPENPOC Collection 2018</p>
     </footer>
 </div>

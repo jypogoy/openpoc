@@ -5,12 +5,19 @@
     {{ hidden_field("sortDirection", "value" : sortDirection) }}
     {{ hidden_field("itemsPerPage", "value" : itemsPerPage) }}
     {{ hidden_field("currentPage", "value" : currentPage) }}
-    <div class="ui action left icon input">
-        <i class="search icon"></i>
-        {{ text_field("keyword", "id" : "fieldKeyword", "placeholder" : "Type in keywords...", "value" : keyword) }}
-        <div class="ui teal submit button">Submit</div>
-        <!-- <button class="ui button" type="reset" id="resetBtn">Reset</button> -->
-    </div> 
+    <div class="ui equal width stackable grid">
+        <div class="column">
+            <div class="ui action left icon input">
+                <i class="search icon"></i>
+                {{ text_field("keyword", "id" : "fieldKeyword", "placeholder" : "Type in keywords...", "value" : keyword) }}
+                <div class="ui teal submit button">Submit</div>
+                <!-- <button class="ui button" type="reset" id="resetBtn">Reset</button> -->
+            </div>            
+        </div>
+        <div class="right aligned column">
+            <a href="/AgileDev/projects/new" class="ui primary button"><i class="plus icon"></i>New Project</a>
+        </div>
+    </div>     
 </form>  
 
 <table class="ui sortable selectable celled striped table">
