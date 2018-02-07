@@ -2,71 +2,40 @@
 <?= $this->getContent() ?>
 
 <div class="page-header">
-    <h2>Register for INVO</h2>
+    <h2>Register for OPENPOC PM</h2>
 </div>
 
-<?= $this->tag->form(['register', 'id' => 'registerForm', 'onbeforesubmit' => 'return false']) ?>
+<?= $this->tag->form(['register', 'id' => 'registerForm', 'onbeforesubmit' => 'return false', 'class' => 'ui form']) ?>
 
-    <fieldset>
+    <div id="name_div" class="required field">
+        <?= $form->label('name') ?>
+        <?= $form->render('name') ?>
+        <div class="ui basic red pointing prompt label transition hidden" id="name_alert">Please enter your full name</div>
+    </div>
+    <div id="username_div" class="required field">
+        <?= $form->label('username') ?>
+        <?= $form->render('username') ?>
+        <div class="ui basic red pointing prompt label transition hidden" id="username_alert">Please enter your desired user name</div>
+    </div>
+    <div id="email_div" class="required field">
+        <?= $form->label('email') ?>
+        <?= $form->render('email') ?>
+        <div class="ui basic red pointing prompt label transition hidden" id="email_alert">Please enter your email</div>
+    </div>
+    <div id="password_div" class="required field">
+        <?= $form->label('password') ?>
+        <?= $form->render('password') ?>
+        <div class="ui basic red pointing prompt label transition hidden" id="password_alert">Please provide a valid password</div>
+    </div>
+    <div id="repeatPassword_div" class="required field">
+        <label for="repeatPassword">Repeat Password</label>
+        <?= $this->tag->passwordField(['repeatPassword']) ?>
+        <div class="ui basic red pointing prompt label transition hidden" id="repeatPassword_alert">The password does not match</div>
+    </div>
 
-        <div class="control-group">
-            <?= $form->label('name', ['class' => 'control-label']) ?>
-            <div class="controls">
-                <?= $form->render('name', ['class' => 'form-control']) ?>
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="name_alert">
-                    <strong>Warning!</strong> Please enter your full name
-                </div>
-            </div>
-        </div>
+    <div class="ui error message"></div>
+    
+    <?= $this->tag->submitButton(['Register', 'class' => 'ui primary submit button', 'onclick' => 'return SignUp.validate();']) ?>
+    <p class="help-block">By signing up, you accept terms of use and privacy policy.</p>
 
-        <div class="control-group">
-            <?= $form->label('username', ['class' => 'control-label']) ?>
-            <div class="controls">
-                <?= $form->render('username', ['class' => 'form-control']) ?>
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="username_alert">
-                    <strong>Warning!</strong> Please enter your desired user name
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <?= $form->label('email', ['class' => 'control-label']) ?>
-            <div class="controls">
-                <?= $form->render('email', ['class' => 'form-control']) ?>
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="email_alert">
-                    <strong>Warning!</strong> Please enter your email
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <?= $form->label('password', ['class' => 'control-label']) ?>
-            <div class="controls">
-                <?= $form->render('password', ['class' => 'form-control']) ?>
-                <p class="help-block">(minimum 8 characters)</p>
-                <div class="alert alert-warning" id="password_alert">
-                    <strong>Warning!</strong> Please provide a valid password
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="repeatPassword">Repeat Password</label>
-            <div class="controls">
-                <?= $this->tag->passwordField(['repeatPassword', 'class' => 'form-control']) ?>
-                <div class="alert" id="repeatPassword_alert">
-                    <strong>Warning!</strong> The password does not match
-                </div>
-            </div>
-        </div>
-
-        <div class="form-actions">
-            <?= $this->tag->submitButton(['Register', 'class' => 'btn btn-primary', 'onclick' => 'return SignUp.validate();']) ?>
-            <p class="help-block">By signing up, you accept terms of use and privacy policy.</p>
-        </div>
-
-    </fieldset>
 </form>

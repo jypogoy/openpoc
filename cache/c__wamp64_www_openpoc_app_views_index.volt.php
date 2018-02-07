@@ -18,6 +18,7 @@
         <?= $this->tag->javascriptInclude('js/jquery-3.3.1.min.js') ?>        
         <?= $this->getContent() ?>
         <?= $this->tag->javascriptInclude('semantic/semantic.min.js') ?>
+        <?= $this->tag->javascriptInclude('js/register.js') ?>
     </body>
 </html>
 

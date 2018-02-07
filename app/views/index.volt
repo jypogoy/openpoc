@@ -18,6 +18,7 @@
         {{ javascript_include('js/jquery-3.3.1.min.js') }}        
         {{ content() }}
         {{ javascript_include('semantic/semantic.min.js') }}
+        {{ javascript_include('js/register.js') }}
     </body>
 </html>
 

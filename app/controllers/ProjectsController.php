@@ -184,5 +184,9 @@ class ProjectsController extends ControllerBase
         $this->view->currentPage = $currentPage;
     }
     
+    public function newAction()
+    {
+        
+    }
 }
 

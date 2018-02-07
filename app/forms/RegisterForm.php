@@ -33,37 +33,37 @@ class RegisterForm extends Form
         $this->add($name);
 
         // Email
-        // $email = new Text('email');
-        // $email->setLabel('E-Mail');
-        // $email->setFilters('email');
-        // $email->addValidators([
-        //     new PresenceOf([
-        //         'message' => 'E-mail is required'
-        //     ]),
-        //     new Email([
-        //         'message' => 'E-mail is not valid'
-        //     ])
-        // ]);
-        // $this->add($email);
+        $email = new Text('email');
+        $email->setLabel('E-Mail');
+        $email->setFilters('email');
+        $email->addValidators([
+            new PresenceOf([
+                'message' => 'E-mail is required'
+            ]),
+            new Email([
+                'message' => 'E-mail is not valid'
+            ])
+        ]);
+        $this->add($email);
 
         // Password
-        // $password = new Password('password');
-        // $password->setLabel('Password');
-        // $password->addValidators([
-        //     new PresenceOf([
-        //         'message' => 'Password is required'
-        //     ])
-        // ]);
-        // $this->add($password);
+        $password = new Password('password');
+        $password->setLabel('Password');
+        $password->addValidators([
+            new PresenceOf([
+                'message' => 'Password is required'
+            ])
+        ]);
+        $this->add($password);
 
         // Confirm Password
-        // $repeatPassword = new Password('repeatPassword');
-        // $repeatPassword->setLabel('Repeat Password');
-        // $repeatPassword->addValidators([
-        //     new PresenceOf([
-        //         'message' => 'Confirmation password is required'
-        //     ])
-        // ]);
-        // $this->add($repeatPassword);
+        $repeatPassword = new Password('repeatPassword');
+        $repeatPassword->setLabel('Repeat Password');
+        $repeatPassword->addValidators([
+            new PresenceOf([
+                'message' => 'Confirmation password is required'
+            ])
+        ]);
+        $this->add($repeatPassword);
     }
 }

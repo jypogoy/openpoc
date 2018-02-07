@@ -15,7 +15,7 @@
             </div>            
         </div>
         <div class="right aligned column">
-            <a href="/AgileDev/projects/new" class="ui primary button"><i class="plus icon"></i>New Project</a>
+            <a href="new" class="ui primary button"><i class="plus icon"></i>New Project</a>
         </div>
     </div>     
 </form>  

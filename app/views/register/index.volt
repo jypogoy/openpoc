@@ -7,17 +7,32 @@
 
 {{ form('register', 'id': 'registerForm', 'onbeforesubmit': 'return false', 'class' : 'ui form') }}
 
-    <div class="required field">
+    <div id="name_div" class="required field">
         {{ form.label('name') }}
-        {{ form.render('name', ['class': 'required field']) }}
-        <div class="ui warning message" id="name_alert">
-            <strong>Warning!</strong> Please enter your full name
-        </div>
+        {{ form.render('name') }}
+        <div class="ui basic red pointing prompt label transition hidden" id="name_alert">Please enter your full name</div>
     </div>
-    <div class="required field">
+    <div id="username_div" class="required field">
         {{ form.label('username') }}
-        {{ form.render('username', ['class': 'form-control']) }}
+        {{ form.render('username') }}
+        <div class="ui basic red pointing prompt label transition hidden" id="username_alert">Please enter your desired user name</div>
     </div>
+    <div id="email_div" class="required field">
+        {{ form.label('email') }}
+        {{ form.render('email') }}
+        <div class="ui basic red pointing prompt label transition hidden" id="email_alert">Please enter your email</div>
+    </div>
+    <div id="password_div" class="required field">
+        {{ form.label('password') }}
+        {{ form.render('password') }}
+        <div class="ui basic red pointing prompt label transition hidden" id="password_alert">Please provide a valid password</div>
+    </div>
+    <div id="repeatPassword_div" class="required field">
+        <label for="repeatPassword">Repeat Password</label>
+        {{ password_field('repeatPassword') }}
+        <div class="ui basic red pointing prompt label transition hidden" id="repeatPassword_alert">The password does not match</div>
+    </div>
+
     <div class="ui error message"></div>
     
     {{ submit_button('Register', 'class': 'ui primary submit button', 'onclick': 'return SignUp.validate();') }}
