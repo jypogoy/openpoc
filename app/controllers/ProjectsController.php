@@ -129,18 +129,6 @@ class ProjectsController extends ControllerBase
         $parameters["conditions"] = "name LIKE '%" . $keyword . "%' OR description LIKE '%" . $keyword . "%'";
         $parameters["order"] = $sortField . ' ' . $sortDirection;        
 
-        // if ($this->session->get('page') !== null) {
-        //     if ($this->request->getQuery('page', 'int') !== null) {
-        //         $currentPage = $this->request->getQuery('page', 'int');
-        //         $this->session->set('page', $currentPage);
-        //     } else {
-        //         $currentPage = $this->session->get('page');
-        //     }
-        // } else {
-        //     $currentPage = $this->request->getQuery('page', 'int');
-        //     $this->session->set('page', $currentPage);
-        // }
-        
         try {
             // The data set to paginate
             $projects = Project::find($parameters);

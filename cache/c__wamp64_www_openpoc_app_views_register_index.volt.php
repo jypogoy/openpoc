@@ -33,8 +33,6 @@
         <div class="ui basic red pointing prompt label transition hidden" id="repeatPassword_alert">The password does not match</div>
     </div>
 
-    <div class="ui error message"></div>
-    
     <?= $this->tag->submitButton(['Register', 'class' => 'ui primary submit button', 'onclick' => 'return SignUp.validate();']) ?>
     <p class="help-block">By signing up, you accept terms of use and privacy policy.</p>
 

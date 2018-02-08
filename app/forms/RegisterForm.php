@@ -16,7 +16,7 @@ class RegisterForm extends Form
         $name->setFilters(['striptags', 'string']);
         $name->addValidators([
             new PresenceOf([
-                'message' => 'Name is required'
+                'message' => 'Name is required.'
             ])
         ]);
         $this->add($name);
@@ -27,7 +27,7 @@ class RegisterForm extends Form
         $name->setFilters(['alpha']);
         $name->addValidators([
             new PresenceOf([
-                'message' => 'Please enter your desired user name'
+                'message' => 'Please enter your desired user name.'
             ])
         ]);
         $this->add($name);
@@ -38,10 +38,10 @@ class RegisterForm extends Form
         $email->setFilters('email');
         $email->addValidators([
             new PresenceOf([
-                'message' => 'E-mail is required'
+                'message' => 'E-mail is required.'
             ]),
             new Email([
-                'message' => 'E-mail is not valid'
+                'message' => 'E-mail is not valid.'
             ])
         ]);
         $this->add($email);
@@ -51,7 +51,7 @@ class RegisterForm extends Form
         $password->setLabel('Password');
         $password->addValidators([
             new PresenceOf([
-                'message' => 'Password is required'
+                'message' => 'Password is required.'
             ])
         ]);
         $this->add($password);
@@ -61,7 +61,7 @@ class RegisterForm extends Form
         $repeatPassword->setLabel('Repeat Password');
         $repeatPassword->addValidators([
             new PresenceOf([
-                'message' => 'Confirmation password is required'
+                'message' => 'Confirmation password is required.'
             ])
         ]);
         $this->add($repeatPassword);
