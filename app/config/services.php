@@ -72,6 +72,10 @@ $di->setShared('view', function () {
                 'compiledSeparator' => '_'
             ]);
 
+            // Enable macro calls
+            $compiler = $volt->getCompiler();
+            $compiler->addFunction('is_a', 'is_a');    
+
             return $volt;
         },
         '.phtml' => PhpEngine::class

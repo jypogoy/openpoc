@@ -8,7 +8,5 @@
 <div class="ui main stackable container">
     {{ flash.output() }}
     {{ content() }}    
-    <footer>
-        <p>&copy; The OPENPOC Collection 2018</p>
-    </footer>
+    <div class="footer text-muted"><p>&copy; The OPENPOC Collection. Copyright 2018, All rights reserved.</p></div>
 </div>

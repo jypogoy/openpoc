@@ -172,9 +172,45 @@ class ProjectsController extends ControllerBase
         $this->view->currentPage = $currentPage;
     }
     
+    /**
+     * Shows the form to create a new project.
+     */
     public function newAction()
     {
+        $this->view->form = new ProjectForm(null, array('edit' => true));
+    }
+
+    /**
+     * Creates a new project.
+     */
+    public function createAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "index",
+                ]
+            );
+        }
+
+        return $this->response->redirect("projects");
+    }
+
+    /**
+     * Edits a project based on its id.
+     */
+    public function editAction($id)
+    {
         
+    }
+
+    /**
+     * Updates a project record on display.
+     */
+    public function saveAction()
+    {
+
     }
 }
 

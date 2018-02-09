@@ -11,9 +11,13 @@ body {
     margin-top: 7em;
 }
 
-.ui.footer.segment {
+/* .ui.footer.segment {
     margin: 5em 0em 0em;
     padding: 5em 0em;
+} */
+
+.footer {
+    margin-top: 2em !important;
 }
 
 /* Semantic UI: To avoid modal strech until the bottom of the screen. */
