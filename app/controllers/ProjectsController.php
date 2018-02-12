@@ -194,6 +194,12 @@ class ProjectsController extends ControllerBase
             );
         }
 
+        $form = new ProjectForm();
+
+        $form->clear();
+
+        $this->flashSession->success("Project was created successfully.");
+
         return $this->response->redirect("projects");
     }
 

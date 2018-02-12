@@ -1,3 +1,5 @@
+{{ alert.getRedirectMessage() }}
+
 <h2>Projects</h2>
 
 <form class="ui form" id="listForm" action="projects" method="post">

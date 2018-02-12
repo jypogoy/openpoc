@@ -146,3 +146,7 @@ $di->set('elements', function () {
 $di->set('listing', function () {
     return new Listing();
 });
+
+$di->set('alert', function () {
+    return new Alert();
+});
