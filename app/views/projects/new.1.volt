@@ -15,9 +15,7 @@
         {% endif %}
     {% endfor %}
 
-    <div class="ui error message"></div>
-
-    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Save.validate();') }}
+    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return SaveProject.validate();') }}
     {{ submit_button('Save & New', 'class' : 'ui teal button') }}
     <a href="../projects" class="ui button">Cancel</a>
 
@@ -26,18 +24,12 @@
 {# Validation messages thrown by the system in case not trapped on UI. #}
 {% if messages is defined %}
     <div class="ui error message">
-        <h4 class="ui header">
-            <i class="search icon"></i>
-            System Validation
-        </h4>
-        <p>
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        </p>
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endif %}    
 
-{{ javascript_include('js/projects_new.js') }}
+{{ javascript_include('js/projects_new.1.js') }}

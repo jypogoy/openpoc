@@ -8,8 +8,8 @@ class ProjectsController extends ControllerBase
 
     const DEFAULT_PAGE = 1;
     const ITEMS_PER_PAGE = 10;    
-    const DEFAULT_SORT_FIELD = 'name';
-    const DEFAULT_SORT_DIRECTION = 'ASC';
+    const DEFAULT_SORT_FIELD = 'date_created';
+    const DEFAULT_SORT_DIRECTION = 'DESC';
 
     public function initialize()
     {
@@ -195,6 +195,37 @@ class ProjectsController extends ControllerBase
         }
 
         $form = new ProjectForm();
+        $project = new Project();
+        $messages = [];
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $project)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+                $messages[count($messages)] = $message;
+            }
+
+            $this->view->messages = $messages;
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "new",
+                ]
+            );
+        }
+
+        if ($project->save() == false) {
+            foreach ($project->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "new",
+                ]
+            );
+        }
 
         $form->clear();
 

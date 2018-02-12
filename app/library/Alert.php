@@ -8,7 +8,7 @@ use Phalcon\Mvc\User\Component;
  * Helps to build alert and message UI elements for the application.
  */
 class Alert extends Component
-{
+{  
 
     public function getRedirectMessage() 
     {
@@ -20,7 +20,7 @@ class Alert extends Component
                 switch ($type) {
                 case 'success':
                     
-                    echo '<div class="ui success message">
+                    echo '<div class="ui success floating message">
                             <i class="close icon"></i>
                             <div class="header">
                             Success!
@@ -32,7 +32,7 @@ class Alert extends Component
                 
                 case 'error':
                     
-                    echo '<div class="ui error message">
+                    echo '<div class="ui error floating message">
                             <i class="close icon"></i>
                             <div class="header">
                             Error!
@@ -44,7 +44,7 @@ class Alert extends Component
 
                 case 'warning':
                     
-                    echo '<div class="ui warning message">
+                    echo '<div class="ui warning floating message">
                             <i class="close icon"></i>
                             <div class="header">
                             Warning!
@@ -56,7 +56,7 @@ class Alert extends Component
 
                 default: # Notice
                         
-                    echo '<div class="ui info message">
+                    echo '<div class="ui info floating message">
                             <i class="close icon"></i>
                             <div class="header">
                             Info

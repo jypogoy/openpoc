@@ -44,7 +44,7 @@ class ProjectForm extends Form
 
         $description = new TextArea('description');
         $description->setLabel('Description');
-        $description->setFilters(['alpha']);
+        $description->setFilters(['striptags', 'string']);
         $this->add($description);      
 
         // Add a text element to put a hidden CSRF

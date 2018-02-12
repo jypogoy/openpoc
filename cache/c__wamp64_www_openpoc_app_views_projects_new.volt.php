@@ -1,8 +1,6 @@
 <h2>New Project</h2>
 
-<?= $this->getContent() ?>
-
-<?= $this->tag->form(['projects/create', 'class' => 'ui form']) ?>
+<?= $this->tag->form(['projects/create', 'id' => 'dataForm', 'class' => 'ui form']) ?>
 
     <?php foreach ($form as $element) { ?>
     
@@ -17,10 +15,29 @@
         <?php } ?>
     <?php } ?>
 
-    <?= $this->tag->submitButton(['Save', 'class' => 'ui primary button', 'onclick' => 'return SaveProject.validate();']) ?>
+    <div class="ui error message"></div>
+
+    <?= $this->tag->submitButton(['Save', 'class' => 'ui primary button', 'onclick' => 'return Save.validate();']) ?>
     <?= $this->tag->submitButton(['Save & New', 'class' => 'ui teal button']) ?>
     <a href="../projects" class="ui button">Cancel</a>
 
 </form>
+
+
+<?php if (isset($messages)) { ?>
+    <div class="ui error message">
+        <h4 class="ui header">
+            <i class="search icon"></i>
+            System Validation
+        </h4>
+        <p>
+            <ul>
+                <?php foreach ($messages as $message) { ?>
+                    <li><?= $message ?></li>
+                <?php } ?>
+            </ul>
+        </p>
+    </div>
+<?php } ?>    
 
 <?= $this->tag->javascriptInclude('js/projects_new.js') ?>

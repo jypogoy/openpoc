@@ -4,7 +4,7 @@ $(function () {
     $("form .alert").hide();
 });
 
-var Save = {
+var SaveProject = {
     validate: function () {        
         var valid = true;
         $('form *').filter(':input').each(function () {
@@ -21,16 +21,11 @@ var Save = {
                     $("#" + el.id + "_alert").removeClass('visible');
                 }
             }    
-        });        
+        });                
 
         $('.error').find('input:text, input:password, textarea').first().focus();
         if (!valid) return false;
 
-        $("form")[0].submit();
+        $(form)[0].submit();
     }
 }
-
-$(document).ready(function () {
-    $("form input:text, input:password, textarea").first().focus();
-    $("form .alert").hide();
-});

@@ -17,7 +17,7 @@
 
     <div class="ui error message"></div>
 
-    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Save.validate();') }}
+    {{ submit_button('Save', 'class': 'ui primary button') }}
     {{ submit_button('Save & New', 'class' : 'ui teal button') }}
     <a href="../projects" class="ui button">Cancel</a>
 
