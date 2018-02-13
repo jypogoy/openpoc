@@ -368,6 +368,7 @@ class ProjectsController extends ControllerBase
         }
 
         $this->view->project = $project;
+        $this->view->setTemplateAfter('project');
     }
 }
 
