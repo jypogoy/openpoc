@@ -27,9 +27,9 @@
         <tr>
             <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" 
                 onclick="sort('name', '<?php echo $sortDirection == 'DESC' ? ($sortField != 'name' ? 'DESC' : 'ASC') : ($sortField != 'name' ? 'ASC' : 'DESC') ?>');">NAME</th>
-            <th class="nine wide <?php echo $sortField == 'description' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" 
+            <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" 
                 onclick="sort('description', '<?php echo $sortDirection == 'DESC' ? ($sortField != 'description' ? 'DESC' : 'ASC') : ($sortField != 'description' ? 'ASC' : 'DESC') ?>');">DESCRIPTION</th>
-            <th>STATUS</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,17 @@
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
-            <td><span class="label label-success">Active</span></td>
+            <td>
+                <a href="projects/profile/{{ item.id }}" data-tooltip="Open project profile" data-position="bottom center">
+                    <i class="folder open icon"></i>
+                </a>
+                <a href="projects/edit/{{ item.id }}" data-tooltip="Edit this project" data-position="bottom center">
+                    <i class="edit icon"></i>
+                </a>
+                <a href onclick="del('{{ item.id }}', '{{ item.name }}'); return false;" data-tooltip="Delete this project" data-position="bottom center">
+                    <i class="remove red icon"></i>
+                </a>                
+            </td>
         </tr>
         {% else %}
             <!--No products to show...ad-->
@@ -52,19 +62,8 @@
     </tfoot>
 </table>
 
-<div class="ui tiny modal delete">
-    <i class="close icon"></i>
-    <div class="header">
-        <i class="trash outline icon"></i> Delete Project
-    </div>
-    <div class="content custom-text" style="min-height: 30px;">        
-    </div>
-    <div class="actions">
-        <div class="ui negative button">Cancel</div>
-        <div class="ui positive button">OK</div>
-    </div>
-</div>
+{{ modals.getConfirmation('delete') }}
 
 <div class="ui active loader"></div>
 
-{{ javascript_include('js/projects.js') }}
+{{ javascript_include('js/projects_list.js') }}

@@ -1,8 +1,8 @@
 <?= $this->alert->getRedirectMessage() ?>
 
-<h2>New Project</h2>
+<h2>Edit Project <?= $project->name ?></h2>
 
-<?= $this->tag->form(['projects/create', 'id' => 'dataForm', 'class' => 'ui form']) ?>
+<?= $this->tag->form(['projects/save', 'role' => 'form', 'id' => 'dataForm', 'class' => 'ui form']) ?>
 
     <?php foreach ($form as $element) { ?>
     
@@ -19,17 +19,12 @@
 
     <div class="ui error message"></div>
 
-    <?= $this->tag->hiddenField(['saveNew', 'id' => 'saveNew']) ?>
-
-    <?= $this->tag->submitButton(['Save', 'class' => 'ui primary button', 'onclick' => 'return Save.validate(0);']) ?>
-    <?= $this->tag->submitButton(['Save & New', 'class' => 'ui teal button', 'onclick' => 'return Save.validate(1);']) ?>
-    <a href="../projects" class="ui button">Cancel</a>
+    <?= $this->tag->submitButton(['Save Changes', 'class' => 'ui primary button', 'onclick' => 'return Save.validate();']) ?>
+    <a href="../../projects" class="ui button">Cancel</a>
 
 </form>
 
 
 <?php if (isset($messages)) { ?>
     <?= $this->alert->getSystemMessage($messages) ?>
-<?php } ?>   
-
-    
+<?php } ?>

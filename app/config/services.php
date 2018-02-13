@@ -74,7 +74,7 @@ $di->setShared('view', function () {
 
             // Enable macro calls
             $compiler = $volt->getCompiler();
-            $compiler->addFunction('is_a', 'is_a');    
+            $compiler->addFunction('is_a', 'is_a');
 
             return $volt;
         },
@@ -149,4 +149,8 @@ $di->set('listing', function () {
 
 $di->set('alert', function () {
     return new Alert();
+});
+
+$di->set('modals', function () {
+    return new Modals();
 });

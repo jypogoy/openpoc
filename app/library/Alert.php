@@ -5,13 +5,27 @@ use Phalcon\Mvc\User\Component;
 /**
  * Elements
  *
- * Helps to build alert and message UI elements for the application.
+ * Helper class to build display messages.
  */
 class Alert extends Component
 {  
-    public function getForwardMessage()
+    public function getSystemMessage($messages)
     {
-        // Not implemented
+        if (isset($messages)) {
+            $content = '<div class="ui error message">
+                            <h4 class="ui header">
+                                <i class="warning circle icon"></i>System Response
+                            </h4>
+                            <p>
+                                <ul>';                            
+                                    foreach ($messages as $message) {
+                                        $content = $content . '<li>' . $message . '</li>';
+                                    };                         
+            $content = $content . '</ul>
+                            </p>
+                        </div>';
+            echo $content;
+        }              
     }
 
     public function getRedirectMessage() 
@@ -26,7 +40,7 @@ class Alert extends Component
                     echo '<div class="ui success floating message">
                             <i class="close icon"></i>
                             <div class="header">
-                            Success!
+                                <i class="check icon"></i>Success
                             </div>
                             <p>' . $message[0] . '</p>
                         </div>';
@@ -38,7 +52,7 @@ class Alert extends Component
                     echo '<div class="ui error floating message">
                             <i class="close icon"></i>
                             <div class="header">
-                            Error!
+                                <i class="alarm icon"></i>Error
                             </div>
                             <p>' . $message[0] . '</p>
                         </div>';      
@@ -50,7 +64,7 @@ class Alert extends Component
                     echo '<div class="ui warning floating message">
                             <i class="close icon"></i>
                             <div class="header">
-                            Warning!
+                            <i class="warning sign icon"></i>Warning
                             </div>
                             <p>' . $message[0] . '</p>
                         </div>'; 
@@ -62,7 +76,7 @@ class Alert extends Component
                     echo '<div class="ui info floating message">
                             <i class="close icon"></i>
                             <div class="header">
-                            Info
+                            <i class="comment icon"></i>Info
                             </div>
                             <p>' . $message[0] . '</p>
                         </div>'; 

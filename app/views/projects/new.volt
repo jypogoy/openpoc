@@ -29,6 +29,10 @@
 
 {# Validation messages thrown by the system in case not trapped on UI. #}
 {% if messages is defined %}
+    {{ alert.getSystemMessage(messages) }}
+{% endif %}   
+
+{#% if messages is defined %}
     <div class="ui error message">
         <h4 class="ui header">
             <i class="search icon"></i>
@@ -42,4 +46,4 @@
             </ul>
         </p>
     </div>
-{% endif %}    
+{% endif %#}    

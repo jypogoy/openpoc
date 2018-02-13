@@ -232,7 +232,7 @@ class ProjectsController extends ControllerBase
 
         $form->clear();        
 
-        $this->flashSession->success("Project was created successfully.");
+        $this->flashSession->success("Project <b>" . $project->name . "</b>  was created successfully.");
 
         $is_saveNew = $this->request->getPost('saveNew');
         if ($is_saveNew == 1) {
@@ -247,7 +247,17 @@ class ProjectsController extends ControllerBase
      */
     public function editAction($id)
     {
-        
+        if (!$this->request->isPost()) {
+
+            $project = Project::findFirstById($id);
+            if (!$project) {
+                $this->flashSession->error("Project was not found.");
+                return $this->response->redirect('projects');
+            }
+
+            $this->view->project = $project;
+            $this->view->form = new ProjectForm($project, array('edit' => true));
+        }
     }
 
     /**
@@ -255,7 +265,109 @@ class ProjectsController extends ControllerBase
      */
     public function saveAction()
     {
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "index",
+                ]
+            );
+        }
 
+        $id = $this->request->getPost("id", "int");
+
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project does not exists.");
+            return $this->response->redirect('projects');
+        }
+
+        $form = new ProjectForm($project);
+        $this->view->form = $form;
+
+        $data = $this->request->getPost();
+
+        if (!$form->isValid($data, $project)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "edit",
+                    "params"     => [$id]
+                ]
+            );
+        }
+
+        if ($project->save() == false) {
+            foreach ($project->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "edit",
+                    "params"     => [$id]
+                ]
+            );
+        }
+
+        $form->clear();
+
+        $this->flashSession->success("Project <b>" . $project->name . "</b>  was updated successfully.");
+
+        return $this->response->redirect('projects');
+    }
+
+    /**
+     * Deletes a project.
+     * 
+     * @param int $id
+     */
+    public function deleteAction($id)
+    {
+        $messages = [];
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project was not found.");
+            return $this->response->redirect('projects');
+        }
+
+        if (!$project->delete()) {
+            foreach ($project->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "search",
+                ]
+            );
+        }
+
+        $this->flashSession->success("Project <b>" . $project->name . "</b> was deleted successfully.");
+
+        return $this->response->redirect('projects');
+    }
+
+    /**
+     * Retrieves the project profile.
+     * 
+     * @param int $id
+     */
+    public function profileAction($id)
+    {
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project was not found.");
+            return $this->response->redirect('projects');
+        }
+
+        $this->view->project = $project;
     }
 }
 

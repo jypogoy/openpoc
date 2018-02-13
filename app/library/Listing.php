@@ -5,7 +5,7 @@ use Phalcon\Mvc\User\Component;
 /**
  * Elements
  *
- * Helps to build record listing UI components.
+ * Helper class to build listing components.
  */
 class Listing extends Component
 {

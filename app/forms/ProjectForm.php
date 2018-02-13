@@ -19,11 +19,14 @@ class ProjectForm extends Form
         return $this->security->getToken();
     }
 
+    /**
+     * Form initializer
+     * 
+     * @param Entity $entity
+     * @param array $options
+     */
     public function initialize($entity = null, $options = array())
     {
-        // Set the same form as entity
-        $this->setEntity($this);
-
         if (!isset($options['edit'])) {
             $element = new Text("id");
             $this->add($element->setLabel("Id"));
@@ -45,6 +48,11 @@ class ProjectForm extends Form
         $description = new TextArea('description');
         $description->setLabel('Description');
         $description->setFilters(['striptags', 'string']);
+        // $description->addValidators([
+        //     new PresenceOf([
+        //         'message' => 'Description is required'
+        //     ])
+        // ]);
         $this->add($description);      
 
         // Add a text element to put a hidden CSRF
