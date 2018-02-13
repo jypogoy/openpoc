@@ -9,10 +9,13 @@ use Phalcon\Mvc\User\Component;
  */
 class Alert extends Component
 {  
+    public function getForwardMessage()
+    {
+        // Not implemented
+    }
 
     public function getRedirectMessage() 
     {
-        
         $messages = $this->flashSession->getMessages();
         if (!is_null($messages)) {
             foreach ($messages as $type => $message) {

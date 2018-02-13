@@ -227,11 +227,19 @@ class ProjectsController extends ControllerBase
             );
         }
 
-        $form->clear();
+        $this->persistent->parameters = null;    
+        $this->session->remove('keyword');                       
+
+        $form->clear();        
 
         $this->flashSession->success("Project was created successfully.");
 
-        return $this->response->redirect("projects");
+        $is_saveNew = $this->request->getPost('saveNew');
+        if ($is_saveNew == 1) {
+            return $this->response->redirect('projects/new');
+        } else {
+            return $this->response->redirect('projects');
+        } 
     }
 
     /**

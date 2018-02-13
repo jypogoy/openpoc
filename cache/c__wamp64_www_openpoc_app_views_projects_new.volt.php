@@ -1,3 +1,5 @@
+<?= $this->alert->getRedirectMessage() ?>
+
 <h2>New Project</h2>
 
 <?= $this->tag->form(['projects/create', 'id' => 'dataForm', 'class' => 'ui form']) ?>
@@ -17,8 +19,10 @@
 
     <div class="ui error message"></div>
 
-    <?= $this->tag->submitButton(['Save', 'class' => 'ui primary button', 'onclick' => 'return Save.validate();']) ?>
-    <?= $this->tag->submitButton(['Save & New', 'class' => 'ui teal button']) ?>
+    <?= $this->tag->hiddenField(['saveNew', 'id' => 'saveNew']) ?>
+
+    <?= $this->tag->submitButton(['Save', 'class' => 'ui primary button', 'onclick' => 'return Save.validate(0);']) ?>
+    <?= $this->tag->submitButton(['Save & New', 'class' => 'ui teal button', 'onclick' => 'return Save.validate(1);']) ?>
     <a href="../projects" class="ui button">Cancel</a>
 
 </form>
@@ -39,5 +43,3 @@
         </p>
     </div>
 <?php } ?>    
-
-<?= $this->tag->javascriptInclude('js/projects_new.js') ?>

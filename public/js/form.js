@@ -1,11 +1,10 @@
 $(function () {
-    $('#dataForm').form(rules);
     $("form input:text, input:password, textarea").first().focus();
     $("form .alert").hide();
 });
 
 var Save = {
-    validate: function () {        
+    validate: function (saveNew) {        
         var valid = true;
         $('form *').filter(':input').each(function () {
             var el = this;
@@ -26,11 +25,7 @@ var Save = {
         $('.error').find('input:text, input:password, textarea').first().focus();
         if (!valid) return false;
 
+        $('#saveNew').val(saveNew);
         $("form")[0].submit();
     }
 }
-
-$(document).ready(function () {
-    $("form input:text, input:password, textarea").first().focus();
-    $("form .alert").hide();
-});

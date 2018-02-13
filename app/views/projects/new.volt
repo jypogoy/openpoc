@@ -1,3 +1,5 @@
+{{ alert.getRedirectMessage() }}
+
 <h2>New Project</h2>
 
 {{ form('projects/create', 'id' : 'dataForm', 'class' : 'ui form') }}
@@ -17,8 +19,10 @@
 
     <div class="ui error message"></div>
 
-    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Save.validate();') }}
-    {{ submit_button('Save & New', 'class' : 'ui teal button') }}
+    {{ hidden_field('saveNew', 'id' : 'saveNew') }}
+
+    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Save.validate(0);') }}
+    {{ submit_button('Save & New', 'class' : 'ui teal button', 'onclick': 'return Save.validate(1);') }}
     <a href="../projects" class="ui button">Cancel</a>
 
 </form>
@@ -39,5 +43,3 @@
         </p>
     </div>
 {% endif %}    
-
-{{ javascript_include('js/projects_new.js') }}
