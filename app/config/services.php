@@ -69,7 +69,8 @@ $di->setShared('view', function () {
 
             $volt->setOptions([
                 'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
+                'compiledSeparator' => '_',
+                'compileAlways' => true // This reflects changes immediately.
             ]);
 
             // Enable macro calls

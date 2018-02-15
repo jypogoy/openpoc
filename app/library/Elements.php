@@ -13,19 +13,28 @@ class Elements extends Component
         'left' => [
             'index' => [
                 'caption' => 'Home',
-                'action' => 'index'
-            ],      
+                'action' => 'index',
+                'iconClass' => 'home icon'
+            ],    
             'projects' => [
                 'caption' => 'Projects',
-                'action' => 'index'
-            ],          
+                'action' => 'index',
+                'iconClass' => 'cubes icon'
+            ],        
+            'admin' => [
+                'caption' => 'Admin',
+                'action' => 'index',
+                'iconClass' => 'setting icon'
+            ],   
             'about' => [
                 'caption' => 'About',
-                'action' => 'index'
+                'action' => 'index',
+                'iconClass' => 'info circle icon'
             ],
             'contact' => [
                 'caption' => 'Contact',
-                'action' => 'index'
+                'action' => 'index',
+                'iconClass' => 'volume control phone icon'
             ]
         ],
         'right' => [
@@ -89,9 +98,9 @@ class Elements extends Component
             }    
             foreach ($menu as $controller => $option) {
                 if ($controllerName == $controller) {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', $option['caption'], 'class' => 'active item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', (isset($option['iconClass']) ? '<i class="' . $option['iconClass'] . '"></i>' : '') . $option['caption'], 'class' => 'active item']);
                 } else {
-                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', $option['caption'], 'class' => 'item']);
+                    echo $this->tag->linkTo([$controller != 'index' ? $controller . ($controller == 'session' ? '/' . $option['action'] : '') : '', (isset($option['iconClass']) ? '<i class="' . $option['iconClass'] . '"></i>' : '') . $option['caption'], 'class' => 'item']);
                 }
             }
             if ($position == 'right') {

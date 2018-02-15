@@ -50,7 +50,7 @@
             </td>
         </tr>
         <?php } if (!$v34436267661iterated) { ?>
-            <!--No products to show...ad-->
+            <!--No products to show...-->
         <?php } ?>
     </tbody>
     <tfoot>

@@ -50,7 +50,7 @@
             </td>
         </tr>
         {% else %}
-            <!--No products to show...ad-->
+            <!--No products to show...-->
         {% endfor %}
     </tbody>
     <tfoot>
