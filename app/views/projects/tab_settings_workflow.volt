@@ -31,7 +31,9 @@
             </td>
         </tr> 
         {% else %}
-            <!--No workflows to show...-->
+            <tr>
+                <td>No workflows to show...</td>
+            </tr> 
         {% endfor %}
     </tbody>
     </table>
@@ -85,7 +87,7 @@
         </form>
     </div>
     <div class="actions">
-        <div class="ui primary button">Save</div>
+        <div class="ui primary button" onclick="saveWorkflow();">Save</div>
         <div class="ui teal button">Save & New</div>
         <div class="ui negative button">Cancel</div>        
     </div>

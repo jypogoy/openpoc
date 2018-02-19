@@ -13,12 +13,13 @@
         </tr>
     </thead>
     <tbody>
+    
         <?php $v3853890471iterated = false; ?><?php foreach ($workflows as $workflow) { ?><?php $v3853890471iterated = true; ?>
         <tr>
             <td><?= $workflow->name ?></td>
             <td><?= $workflow->description ?></td>
             <td>
-                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="edit(<?= $workflow->id ?>);">
+                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow(<?= $workflow->id ?>);">
                     <i class="edit icon"></i>
                 </a>
                 <a class="ui icon" data-tooltip="Move" data-position="bottom center">
@@ -30,7 +31,9 @@
             </td>
         </tr> 
         <?php } if (!$v3853890471iterated) { ?>
-            <!--No workflows to show...-->
+            <tr>
+                <td>No workflows to show...</td>
+            </tr> 
         <?php } ?>
     </tbody>
     </table>
@@ -46,7 +49,7 @@
     <div class="content">  
 
         <?= $this->tag->form(['workflow/create', 'id' => 'dataForm', 'class' => 'ui form']) ?>
-
+        
             <?php foreach ($form as $element) { ?>
             
                 <?php if (is_a($element, 'Phalcon\Forms\Element\Hidden')) { ?>
@@ -69,8 +72,10 @@
         </form>
     </div>
     <div class="actions">
-        <div class="ui primary button">Save</div>
+        <div class="ui primary button" onclick="saveWorkflow();">Save</div>
         <div class="ui teal button">Save & New</div>
         <div class="ui negative button">Cancel</div>        
     </div>
 </div>
+
+<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>
