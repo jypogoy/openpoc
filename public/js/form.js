@@ -29,3 +29,11 @@ var Save = {
         $("form")[0].submit();
     }
 }
+
+function clear() { //TODO Add reset for numeric and combobox.
+    $('form *').filter(':input').each(function () {
+        var el = this;
+        el.value = ''; 
+    }); 
+    $("form input:text, input:password, textarea").first().focus(); 
+}

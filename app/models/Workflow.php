@@ -1,6 +1,6 @@
 <?php
 
-class WorkFlow extends \Phalcon\Mvc\Model
+class Workflow extends \Phalcon\Mvc\Model
 {
 
     /**

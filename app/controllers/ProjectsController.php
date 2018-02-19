@@ -367,11 +367,12 @@ class ProjectsController extends ControllerBase
             return $this->response->redirect('projects');
         }
 
-        $workflows = WorkFlow::findByProjectId($id);
+        $workflows = Workflow::findByProjectId($id);
+        $form = new WorkflowForm(new Workflow(), array('edit' => true));
 
         $this->view->project = $project;
         $this->view->workflows = $workflows;
-        $this->view->form = new WorkFlowForm(count($workflows) > 0 ? $workflows[0] : null, array('edit' => true));
+        $this->view->form = $form;
         $this->view->setTemplateAfter('project');
     }
 }

@@ -13,12 +13,13 @@
         </tr>
     </thead>
     <tbody>
+    
         {% for workflow in workflows %}
         <tr>
             <td>{{ workflow.name }}</td>
             <td>{{ workflow.description }}</td>
             <td>
-                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="edit({{ workflow.id }});">
+                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow({{ workflow.id }});">
                     <i class="edit icon"></i>
                 </a>
                 <a class="ui icon" data-tooltip="Move" data-position="bottom center">
@@ -60,7 +61,7 @@
     <div class="content">  
 
         {{ form('workflow/create', 'id' : 'dataForm', 'class' : 'ui form') }}
-
+        
             {% for element in form %}
             
                 {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
@@ -89,3 +90,5 @@
         <div class="ui negative button">Cancel</div>        
     </div>
 </div>
+
+{{ javascript_include('js/projects_workflows.js') }}

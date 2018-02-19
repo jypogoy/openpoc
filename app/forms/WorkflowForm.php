@@ -8,7 +8,7 @@ use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
 
-class WorkFlowForm extends Form
+class WorkflowForm extends Form
 {
 
     /**
@@ -30,8 +30,11 @@ class WorkFlowForm extends Form
         if (!isset($options['edit'])) {
             $element = new Text("id");
             $this->add($element->setLabel("Id"));
+            $projectId = new Text("project_id");
+            $this->add($projectId->setLabel("Project Id"));
         } else {
             $this->add(new Hidden("id"));
+            $this->add(new Hidden("project_id"));
         }
         
         // Add a text element to capture the 'name'
@@ -47,12 +50,7 @@ class WorkFlowForm extends Form
 
         $description = new TextArea('description');
         $description->setLabel('Description');
-        $description->setFilters(['striptags', 'string']);
-        // $description->addValidators([
-        //     new PresenceOf([
-        //         'message' => 'Description is required'
-        //     ])
-        // ]);
+        $description->setFilters(['striptags', 'string']);        
         $this->add($description);      
 
         // Add a text element to put a hidden CSRF

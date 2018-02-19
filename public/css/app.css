@@ -3,6 +3,10 @@ body {
     /* background-color: #cccccc; */
  }
 
+a {
+    cursor: pointer;
+}
+
 .ui.menu .item img.logo {
     margin-right: 1em;
 }
@@ -28,6 +32,10 @@ body {
 /* Semantic UI: To avoid modal strech until the bottom of the screen. */
 .modal { 
     bottom: auto; 
+}
+
+.toastr-custom-pos {
+    margin-top: 5em;
 }
 
 /* .active.paging {
