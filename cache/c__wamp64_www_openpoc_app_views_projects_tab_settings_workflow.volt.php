@@ -25,7 +25,7 @@
                 <a class="ui icon" data-tooltip="Move" data-position="bottom center">
                     <i class="move icon"></i>
                 </a>
-                <a class="ui icon" data-tooltip="Delete" data-position="bottom center">
+                <a class="ui icon" onclick="del('<?= $workflow->id ?>', '<?= $workflow->name ?>'); return false;" data-tooltip="Delete" data-position="bottom center">
                     <i class="remove red icon"></i>
                 </a>                                                       
             </td>
@@ -55,7 +55,7 @@
                 <?php if (is_a($element, 'Phalcon\Forms\Element\Hidden')) { ?>
                     <?= $element ?>
                 <?php } else { ?>
-                    <div id="name_div" class="<?= ($this->length($element->getValidators()) > 0 ? 'required' : '') ?> field">
+                    <div id="<?= $element->getName() ?>_div" class="<?= ($this->length($element->getValidators()) > 0 ? 'required' : '') ?> field">
                         <?= $element->label() ?>
                         <?= $element->render() ?>
                         <div class="ui basic red pointing prompt label transition hidden" id="name_alert">Please enter a work flow name</div>
@@ -72,10 +72,12 @@
         </form>
     </div>
     <div class="actions">
-        <div class="ui primary button" onclick="saveWorkflow();">Save</div>
-        <div class="ui teal button">Save & New</div>
+        <div class="ui primary button" onclick="saveWorkflow(false);">Save</div>
+        <div class="ui teal button" onclick="saveWorkflow(true);">Save & New</div>
         <div class="ui negative button">Cancel</div>        
     </div>
 </div>
+
+<?= $this->modals->getConfirmation('delete', 'Workflow') ?>
 
 <?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>

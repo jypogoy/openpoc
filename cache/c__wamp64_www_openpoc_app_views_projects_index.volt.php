@@ -62,7 +62,7 @@
     </tfoot>
 </table>
 
-<?= $this->modals->getConfirmation('delete') ?>
+<?= $this->modals->getConfirmation('delete', 'Project') ?>
 
 <div class="ui active loader"></div>
 

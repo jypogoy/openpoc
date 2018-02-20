@@ -6,6 +6,7 @@ $(function () {
 });
 
 function editWorkflow(id) {
+    clear(); // See form.js
     $.post('../../workflows/get/' + id, function (data) {
         $('form *').filter(':input').each(function () {
             var el = this;
@@ -21,44 +22,57 @@ function editWorkflow(id) {
     });
 }
 
-function saveWorkflow() {    
-    var valid = true;
-    var data;
-    $('form *').filter(':input').each(function () {
-        var el = this;
-        if ($("#" + el.id + "_div").hasClass('required')) {
-            if ($.trim(el.value) == '') {
-                $("#" + el.id + "_div").addClass('error');
-                $("#" + el.id + "_alert").removeClass('hidden');
-                $("#" + el.id + "_alert").addClass('visible');
-                valid = false;
-            } else {    
-                $("#" + el.id + "_div").removeClass('error');
-                $("#" + el.id + "_alert").addClass('hidden');
-                $("#" + el.id + "_alert").removeClass('visible');
+function saveWorkflow(id, isSaveNew) {    
+    var isValid = Form.validate(true); // See form.js    
+    if (isValid) {
+        var action;
+        if (id) {
+            action = '../../workflows/save'
+        } else {
+            action = '../../workflows/create'
+        }
+        $.post(action, $('form').serialize(), function (msg) {    
+            var startPos = msg.indexOf('>') + 1;
+            var endPos = msg.indexOf('<', startPos);
+            var textMsg = msg.substring(startPos, endPos);  
+            if (msg.indexOf('danger') != -1) {                
+                toastr.error(textMsg);
+            } else if (msg.indexOf('success') != -1) {                
+                toastr.success(textMsg);
             }
-        }           
-    });        
+            location.reload();
+        })
+        .done(function (msg) {
+            if (isSaveNew) {
+                clear(); // See form.js
+            } else {                
+                modals.hideWorkflow();
+            }
+        })
+        .fail(function (xhr, status, error) {
+            toastr.error(error);
+        });
+    }    
+}
 
-    $('.error').find('input:text, input:password, textarea').first().focus();
-    if (!valid) return false;
+function del(id, name) {
 
-    $('#saveNew').val(saveNew);
+    $('.custom-text').html('<p>Are you sure you want to delete workflow <strong>' + name + '</strong>? Click OK to proceed.</p>');
 
-    $.post('../../workflows/save', $('form').serialize(), function (data) {
-        alert(data);
-        // $('form *').filter(':input').each(function () {
-        //     var el = this;
-        //     el.value = data[0][el.id]; 
-        // });  
-        // modals.showWorkflow();        
+    $('.ui.tiny.modal.delete')
+    .modal({
+        inverted : true,
+        closable : true,
+        observeChanges : true, // <-- Helps retain the modal position on succeeding show.
+        onDeny : function(){
+            // Do nothing
+        },
+        onApprove : function() {
+            window.location = '../../workflows/delete/' + id;
+        }
     })
-    .done(function (msg) {
-        modals.hideWorkflow();
-    })
-    .fail(function (xhr, status, error) {
-        alert(error);
-    });
+    .modal('show');
+
 }
 
 var modals = {

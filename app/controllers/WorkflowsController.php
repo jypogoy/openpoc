@@ -10,41 +10,52 @@ class WorkflowsController extends ControllerBase
         $this->view->disable();
     }
 
-    public function createAction($id)
+    public function createAction()
     {
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(
                 [
-                    "controller" => "projects",
-                    "action"     => "profile",
-                    "params"     => $id
+                    "controller" => "projects"
                 ]
             );
         }
 
         $form = new WorkflowForm();
         $workflow = new Workflow();
-        $messages = [];
-
+        
         $data = $this->request->getPost();
         if (!$form->isValid($data, $workflow)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
-                $messages[count($messages)] = $message;
             }
 
-            $this->view->messages = $messages;
             return $this->dispatcher->forward(
                 [
                     "controller" => "projects",
-                    "action"     => "new",
+                    "action"     => "profile",
+                    "params"     => [$data['project_id']]
                 ]
             );
         }
 
-        $workflow = WorkFlow::findById($id);
-        $this->response->setJsonContent('Hello');
-        return $this->response;
+        if ($workflow->save() == false) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "profile",
+                    "params"     => [$data['project_id']]
+                ]
+            );
+        }
+
+        $form->clear();        
+
+        $this->flashSession->success("Workflow <b>" . $workflow->name . "</b>  was created successfully.");
+        
     }
 
     /**
@@ -61,60 +72,90 @@ class WorkflowsController extends ControllerBase
 
     public function saveAction()
     {
-        // $projectId = $this->request->getPost("project_id", "int");
-        // if (!$this->request->isPost()) {
-        //     return $this->dispatcher->forward(
-        //         [
-        //             "controller" => "projects",
-        //             "action"     => "profile",
-        //             "params"     => [$projectId]
-        //         ]
-        //     );
-        // }
+        if ($this->request->isPost() == true) 
+        {
+            if (!$this->request->isAjax()) {
+                $this->flash->error('Non Ajax call is not allowed!');
+                exit;
+            }
+        } else {
+            $this->flash->error('Requested action not allowed! Must come from a POST.');
+            exit;
+        }    
 
-        //$workflow = Workflow::findFirstById($id);
-        // if (!$workflow) {
-        //     $this->flashSession->error("Workflow does not exists.");
-        //     return $this->response->redirect('workflows');
-        // }
+        $data['id'] = $this->request->getPost('id');
+        $data['name'] = $this->request->getPost('name');
+        $data['description'] = $this->request->getPost('description');
+        $data['project_id'] = $this->request->getPost('project_id');
+           
+        $workflow = Workflow::findFirstById($data['id']);    
+        $this->flash->success("Workflow " . $workflow->name . " was updated successfully.");       
 
-        // $form = new WorkflowForm($workflow);
-        // $this->view->form = $form;
+        $form = new WorkflowForm($workflow);
+        if (!$form->isValid($data, $workflow)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            exit;
+        }
 
-        $data = $this->request->getPost();
-        $workflow = Workflow::findFirstById($data[0].id);    
+        if ($workflow->save() == false) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            exit;
+        }
 
-        // if (!$form->isValid($data, $project)) {
-        //     foreach ($form->getMessages() as $message) {
-        //         $this->flash->error($message);
-        //     }
+        // $this->response->setContent("Workflow <b>" . $workflow->name . "</b> was updated successfully.");    
+        // $this->response->send();
+         
+        return $this->dispatcher->forward(
+            [
+                "controller" => "projects",
+                "action"     => "profile",
+                "params"     => [$data['project_id']]
+            ]
+        );
+    }
 
-        //     return $this->dispatcher->forward(
-        //         [
-        //             "controller" => "projects",
-        //             "action"     => "profile",
-        //             "params"     => [$projectId]
-        //         ]
-        //     );
-        // }
+    /**
+     * Deletes a project.
+     * 
+     * @param int $id
+     */
+    public function deleteAction($id)
+    {
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects"
+                ]
+            );
+        }
 
-        // if ($workflow->save() == false) {
-        //     foreach ($workflow->getMessages() as $message) {
-        //         $this->flash->error($message);
-        //     }
+        $workflow = Workflow::findFirstById($id);
+        if (!$workflow) {
+            $this->flashSession->error("Workflow was not found.");
+            return $this->response->redirect('projects');
+        }
 
-        //     return $this->dispatcher->forward(
-        //         [
-        //             "controller" => "projects",
-        //             "action"     => "profile",
-        //             "params"     => [$projectId]
-        //         ]
-        //     );
-        // }
+        if (!$workflow->delete()) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flash->error($message);
+            }
 
-        // $form->clear();
-        $this->response->setContent("Workflow was updated successfully.");    
-        $this->response->send();
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "profile",
+                    "params"     => [$workflow->project_id]
+                ]
+            );
+        }
+        
+        $this->flashSession->success("Workflow <b>" . $workflow->name . "</b> was deleted successfully.");
+
+        return $this->response->redirect("projects/profile/" . $workflow->project_id);
     }
 }
 

@@ -62,7 +62,7 @@
     </tfoot>
 </table>
 
-{{ modals.getConfirmation('delete') }}
+{{ modals.getConfirmation('delete', 'Project') }}
 
 <div class="ui active loader"></div>
 

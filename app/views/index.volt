@@ -26,6 +26,7 @@
         {{ javascript_include('semantic/semantic.min.js') }}
         {{ javascript_include('toastr/toastr.min.js') }}
         {#{ javascript_include('snackbar/snackbar.min.js') }#}
+        {{ javascript_include('js/app.js') }}
         {{ javascript_include('js/message.js') }}
         {{ javascript_include('js/form.js') }}
         {{ javascript_include('js/register.js') }}

@@ -11,15 +11,15 @@ use Phalcon\Mvc\User\Component;
 class Modals extends Component
 {  
 
-    public function getConfirmation($action)
+    public function getConfirmation($action, $entityName)
     {
 
-        $controllerName = $this->view->getControllerName();
+        //$controllerName = $this->view->getControllerName();
 
         $content = '<div class="ui tiny modal '. $action . '">
                         <i class="close icon"></i>
                         <div class="header">
-                            <i class="trash outline icon"></i> ' . ucwords($action) . ' ' . ucwords($controllerName) . '
+                            <i class="trash outline icon"></i> ' . ucwords($action) . ' ' . ucwords($entityName) . '
                         </div>
                         <div class="content custom-text" style="min-height: 30px;">        
                         </div>

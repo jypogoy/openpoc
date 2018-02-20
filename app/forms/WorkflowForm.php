@@ -28,8 +28,9 @@ class WorkflowForm extends Form
     public function initialize($entity = null, $options = array())
     {
         if (!isset($options['edit'])) {
-            $element = new Text("id");
-            $this->add($element->setLabel("Id"));
+            $id = new Text("id");
+            $id->setLabel("Id");            
+            $this->add($id);
             $projectId = new Text("project_id");
             $this->add($projectId->setLabel("Project Id"));
         } else {
