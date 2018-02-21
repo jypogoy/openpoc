@@ -1,6 +1,7 @@
 <?= $this->alert->getRedirectMessage() ?>
 
 <h2>Project <?= $project->name ?></h2>
+<?= $this->tag->hiddenField(['id', 'id' => 'projectId', 'value' => $project->id]) ?>
 
 <div class="ui top attached tabular menu">
     <a class="active item" data-tab="1st"><h4><i class="snowflake icon"></i>Project Plan</h4></a>
@@ -18,41 +19,9 @@
         <i class="plus icon"></i>
     </button>
     <p></p>
-    <table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th class="five wide">NAME</th>
-            <th class="nine wide">DESCRIPTION</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    
-        <?php $v3853890471iterated = false; ?><?php foreach ($workflows as $workflow) { ?><?php $v3853890471iterated = true; ?>
-        <tr>
-            <td><?= $workflow->name ?></td>
-            <td><?= $workflow->description ?></td>
-            <td>
-                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow(<?= $workflow->id ?>);">
-                    <i class="edit icon"></i>
-                </a>
-                <a class="ui icon" data-tooltip="Move" data-position="bottom center">
-                    <i class="move icon"></i>
-                </a>
-                <a class="ui icon" onclick="del('<?= $workflow->id ?>', '<?= $workflow->name ?>'); return false;" data-tooltip="Delete" data-position="bottom center">
-                    <i class="remove red icon"></i>
-                </a>                                                       
-            </td>
-        </tr> 
-        <?php } if (!$v3853890471iterated) { ?>
-            <tr>
-                <td>No workflows to show...</td>
-            </tr> 
-        <?php } ?>
-    </tbody>
-    </table>
-
-    
+    <div id="workflowListWrapper">
+        <div class="ui active loader"></div>
+    </div>
 </div>
 
 <div class="ui tiny modal flow">
@@ -94,7 +63,7 @@
 
 <?= $this->modals->getConfirmation('delete', 'Workflow') ?>
 
-<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>
+<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>    
     <div class="ui segment">
     <a class="ui blue ribbon label"><i class="tag icon"></i>TAGS</a>
     <button class="ui right floated icon small primary button" id="btnAddTag" data-tooltip="Add tag" data-position="bottom center">

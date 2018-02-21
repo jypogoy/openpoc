@@ -1,5 +1,5 @@
 
-{{ content() }}
+{#{ content() }#}
 
 <div class="ui segment">
     <h1 class="ui huge header">Page not found</h1>

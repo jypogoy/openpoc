@@ -11,7 +11,7 @@ $(function () {
                 // Do nothing
             },
             onApprove : function() {
-                window.location = 'projects/delete/' + id;
+                // See button action
             }
         })
         .modal('setting', { detachable:false })
@@ -28,7 +28,7 @@ $(function () {
                 // Do nothing
             },
             onApprove : function() {
-                window.location = 'projects/delete/' + id;
+                // See button action
             }
         })
         .modal('setting', { detachable:false })

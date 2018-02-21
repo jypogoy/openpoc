@@ -1,5 +1,5 @@
 
-{{ content() }}
+{#{ content() }#}
 
 <div class="ui segment">
     <h1 class="ui huge header">Unauthorized</h1>

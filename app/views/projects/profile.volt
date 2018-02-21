@@ -1,6 +1,7 @@
 {{ alert.getRedirectMessage() }}
 
 <h2>Project {{ project.name }}</h2>
+{{ hidden_field('id', 'id' : 'projectId', 'value' : project.id) }}
 
 <div class="ui top attached tabular menu">
     <a class="active item" data-tab="1st"><h4><i class="snowflake icon"></i>Project Plan</h4></a>
@@ -12,7 +13,7 @@
     <a class="item" data-tab="7th"><h4><i class="settings icon"></i>Settings</h4></a>
 </div>
 <div class="ui bottom attached active tab segment" data-tab="1st">
-    {% include 'projects/tab_settings_workflow.volt' %}
+    {% include 'projects/tab_settings_workflow_segment.volt' %}    
     {% include 'projects/tab_settings_tags.volt' %}
     {% include 'projects/tab_settings_colors.volt' %}
 </div>

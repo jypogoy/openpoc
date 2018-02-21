@@ -9,7 +9,7 @@
         {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
             {{ element }}
         {% else %}
-            <div id="name_div" class="{{ element.getValidators() | length > 0 ? 'required' : '' }} field">
+            <div id="{{ element.getName() }}_div" class="{{ element.getValidators() | length > 0 ? 'required' : '' }} field">
                 {{ element.label() }}
                 {{ element.render() }}
                 <div class="ui basic red pointing prompt label transition hidden" id="name_alert">Please enter a project name</div>
@@ -21,8 +21,8 @@
 
     {{ hidden_field('saveNew', 'id' : 'saveNew') }}
 
-    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Save.validate(0);') }}
-    {{ submit_button('Save & New', 'class' : 'ui teal button', 'onclick': 'return Save.validate(1);') }}
+    {{ submit_button('Save', 'class': 'ui primary button', 'onclick': 'return Form.validate(false);') }}
+    {{ submit_button('Save & New', 'class' : 'ui teal button', 'onclick': 'return Form.validate(false);') }}
     <a href="../projects" class="ui button">Cancel</a>
 
 </form>

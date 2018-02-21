@@ -7,7 +7,11 @@ class WorkflowsController extends ControllerBase
     {
         $this->tag->setTitle('Manage your Workflows');
         parent::initialize();
-        $this->view->disable();
+    }
+
+    public function indexAction()
+    {
+        $this->view->setTemplateAfter('content');
     }
 
     public function createAction()
@@ -59,7 +63,7 @@ class WorkflowsController extends ControllerBase
     }
 
     /**
-     * Send the API call by id.
+     * API call for retrieving a particular record by id.
      * @param int $id
      */
     public function getAction($id)
@@ -70,19 +74,11 @@ class WorkflowsController extends ControllerBase
         exit;
     }
 
+    /**
+     * API call for updating an existing record on display.
+     */
     public function saveAction()
     {
-        if ($this->request->isPost() == true) 
-        {
-            if (!$this->request->isAjax()) {
-                $this->flash->error('Non Ajax call is not allowed!');
-                exit;
-            }
-        } else {
-            $this->flash->error('Requested action not allowed! Must come from a POST.');
-            exit;
-        }    
-
         $data['id'] = $this->request->getPost('id');
         $data['name'] = $this->request->getPost('name');
         $data['description'] = $this->request->getPost('description');
@@ -105,34 +101,22 @@ class WorkflowsController extends ControllerBase
             }
             exit;
         }
-
-        // $this->response->setContent("Workflow <b>" . $workflow->name . "</b> was updated successfully.");    
-        // $this->response->send();
          
-        return $this->dispatcher->forward(
-            [
-                "controller" => "projects",
-                "action"     => "profile",
-                "params"     => [$data['project_id']]
-            ]
-        );
+        // return $this->dispatcher->forward(
+        //     [
+        //         "controller" => "projects",
+        //         "action"     => "profile",
+        //         "params"     => [$data['project_id']]
+        //     ]
+        // );
     }
 
-    /**
-     * Deletes a project.
-     * 
+    /**     
+     * API call that deletes a record by id.
      * @param int $id
      */
     public function deleteAction($id)
     {
-        if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "projects"
-                ]
-            );
-        }
-
         $workflow = Workflow::findFirstById($id);
         if (!$workflow) {
             $this->flashSession->error("Workflow was not found.");
@@ -156,6 +140,17 @@ class WorkflowsController extends ControllerBase
         $this->flashSession->success("Workflow <b>" . $workflow->name . "</b> was deleted successfully.");
 
         return $this->response->redirect("projects/profile/" . $workflow->project_id);
+    }
+
+    /**
+     * API call that retrieves workflow records for a project.
+     * @param int $projectId
+     */
+    public function listByProjectAction($projectId)
+    {
+        $workflows = Workflow::find();
+        $this->view->workflows = $workflows;
+        $this->view->setTemplateAfter('content');
     }
 }
 

@@ -13,12 +13,13 @@ class ControllerBase extends Controller
     public function beforeExecuteRoute($dispatcher)
     {
         // Re-route to the login page when session expires.
-        if (!$this->session->has('auth')) {
+        if ($this->session->isStarted() && !$this->session->has('auth')) {
             $module = $this->router->getModuleName();
             if ($dispatcher->getControllerName() != 'session') {
                 $dispatcher->forward(array('controller' => 'session', 'action' => 'index'));
                 return false;
-            }
-        }
+            }            
+        }   
     }
+
 }

@@ -1,9 +1,22 @@
 $(function () {
+    loadWorkflowList();
     $('#btnAddWorkflow').on('click', function () {
         clear(); // See form.js
         modals.showWorkflow();
     });
 });
+
+function loadWorkflowList() {
+    $.get('../../workflows/listbyproject/' + $('#projectId').val(), function (data) {    
+        $('#workflowListWrapper').html(data);
+    })
+    .done(function (msg) {
+        // Do nothing...
+    })
+    .fail(function (xhr, status, error) {
+        toastr.error(error);
+    });
+}
 
 function editWorkflow(id) {
     clear(); // See form.js
@@ -15,10 +28,10 @@ function editWorkflow(id) {
         modals.showWorkflow();
     })
     .done(function (msg) {
-        //alert('success');
+        // Do nothing...
     })
     .fail(function (xhr, status, error) {
-        //alert(error);
+        toastr.error(error);
     });
 }
 
@@ -39,8 +52,7 @@ function saveWorkflow(id, isSaveNew) {
                 toastr.error(textMsg);
             } else if (msg.indexOf('success') != -1) {                
                 toastr.success(textMsg);
-            }
-            location.reload();
+            }            
         })
         .done(function (msg) {
             if (isSaveNew) {
@@ -48,6 +60,8 @@ function saveWorkflow(id, isSaveNew) {
             } else {                
                 modals.hideWorkflow();
             }
+            $('.loader').fadeIn();
+            loadWorkflowList();
         })
         .fail(function (xhr, status, error) {
             toastr.error(error);
