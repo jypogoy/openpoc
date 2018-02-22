@@ -1,7 +1,48 @@
 $(function () {
-    loadWorkflowList();
+    //loadWorkflowList();
+
+    // Sortable rows
+    $( ".sorted_table").sortable({
+        containerSelector: 'table',
+        itemPath: '> tbody',
+        itemSelector: 'tr',
+        placeholder: '<tr class="placeholder"/>'
+    });
+
+    // Sortable column heads
+    var oldIndex;
+    $('.sorted_table tr').sortable({
+        containerSelector: 'tr',
+        itemSelector: 'th',
+        placeholder: '<th class="placeholder"/>',
+        vertical: false,
+        onDragStart: function ($item, container, _super) {
+            oldIndex = $item.index();
+            $item.appendTo($item.parent());
+            _super($item, container);
+        },
+        onDrop: function  ($item, container, _super) {
+            var field,
+                newIndex = $item.index();
+
+            if(newIndex != oldIndex) {
+            $item.closest('table').find('tbody tr').each(function (i, row) {
+                row = $(row);
+                if(newIndex < oldIndex) {
+                row.children().eq(newIndex).before(row.children()[oldIndex]);
+                } else if (newIndex > oldIndex) {
+                row.children().eq(newIndex).after(row.children()[oldIndex]);
+                }
+            });
+            }
+
+            _super($item, container);
+        }
+    });
+
     $('#btnAddWorkflow').on('click', function () {
         clear(); // See form.js
+        $('#project_id').val($('#projectId').val());
         modals.showWorkflow();
     });
 });
@@ -35,37 +76,38 @@ function editWorkflow(id) {
     });
 }
 
-function saveWorkflow(id, isSaveNew) {    
+function saveWorkflow(isSaveNew) {    
     var isValid = Form.validate(true); // See form.js    
-    if (isValid) {
-        var action;
-        if (id) {
-            action = '../../workflows/save'
-        } else {
-            action = '../../workflows/create'
-        }
-        $.post(action, $('form').serialize(), function (msg) {    
-            var startPos = msg.indexOf('>') + 1;
-            var endPos = msg.indexOf('<', startPos);
-            var textMsg = msg.substring(startPos, endPos);  
-            if (msg.indexOf('danger') != -1) {                
-                toastr.error(textMsg);
-            } else if (msg.indexOf('success') != -1) {                
-                toastr.success(textMsg);
-            }            
-        })
-        .done(function (msg) {
-            if (isSaveNew) {
-                clear(); // See form.js
-            } else {                
-                modals.hideWorkflow();
-            }
-            $('.loader').fadeIn();
-            loadWorkflowList();
-        })
-        .fail(function (xhr, status, error) {
-            toastr.error(error);
-        });
+    if (isValid) {        
+        var id = $('#id').val();
+        var form = $('#dataForm_Workflow')[0];
+        form.action = id ? '../../workflows/save' : '../../workflows/create';
+        form.submit();
+        
+        // $.post(action, $('form').serialize(), function (msg) {  
+        //     alert(msg);  
+        //     var startPos = msg.indexOf('>') + 1;
+        //     var endPos = msg.indexOf('<', startPos);
+        //     var textMsg = msg.substring(startPos, endPos);  
+        //     if (msg.indexOf('danger') != -1) {                
+        //         toastr.error(textMsg);
+        //     } else if (msg.indexOf('success') != -1) {                
+        //         toastr.success(textMsg);
+        //     }            
+        // })
+        // .done(function (msg) {
+        //     if (isSaveNew) {
+        //         clear(); // See form.js
+        //     } else {                
+        //         modals.hideWorkflow();
+        //     }
+        //     $('.loader').fadeIn();
+        //     //location.reload();
+        //     loadWorkflowList();
+        // })
+        // .fail(function (xhr, status, error) {
+        //     toastr.error(error);
+        // });
     }    
 }
 

@@ -11,56 +11,80 @@ class WorkflowsController extends ControllerBase
 
     public function indexAction()
     {
-        $this->view->setTemplateAfter('content');
+        $this->view->setTemplateAfter('content');        
     }
 
     public function createAction()
     {
-        if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "projects"
-                ]
-            );
-        }
-
         $form = new WorkflowForm();
-        $workflow = new Workflow();
-        
+        $workflow = new Workflow();        
+
         $data = $this->request->getPost();
         if (!$form->isValid($data, $workflow)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
-
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "projects",
-                    "action"     => "profile",
-                    "params"     => [$data['project_id']]
-                ]
-            );
+            return $this->response->redirect('projects/profile/' . $data['project_id']);
         }
 
         if ($workflow->save() == false) {
             foreach ($workflow->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
-
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "projects",
-                    "action"     => "profile",
-                    "params"     => [$data['project_id']]
-                ]
-            );
+            return $this->response->redirect('projects/profile/' . $data['project_id']);
         }
+         
+        $this->flashSession->success("Workflow was created successfully.");       
 
-        $form->clear();        
-
-        $this->flashSession->success("Workflow <b>" . $workflow->name . "</b>  was created successfully.");
-        
+        return $this->response->redirect('projects/profile/' . $data['project_id']);
     }
+
+    // public function createAction()
+    // {
+    //     $form = new WorkflowForm();
+    //     $workflow = new Workflow();
+        
+    //     $data = $this->request->getPost();
+    //     if (!$form->isValid($data, $workflow)) {
+    //         foreach ($form->getMessages() as $message) {
+    //             $this->flash->error($message);
+    //         }
+
+    //         return $this->dispatcher->forward(
+    //             [
+    //                 "controller" => "projects",
+    //                 "action"     => "profile",
+    //                 "params"     => [$data['project_id']]
+    //             ]
+    //         );
+    //     }
+
+    //     if ($workflow->save() == false) {
+    //         foreach ($workflow->getMessages() as $message) {
+    //             $this->flash->error($message);
+    //         }
+
+    //         return $this->dispatcher->forward(
+    //             [
+    //                 "controller" => "projects",
+    //                 "action"     => "profile",
+    //                 "params"     => [$data['project_id']]
+    //             ]
+    //         );
+    //     }
+
+    //     $form->clear();        
+
+    //     $this->flashSession->success("Workflow <b>" . $workflow->name . "</b>  was created successfully.");
+       
+    //     return $this->dispatcher->forward(
+    //         [
+    //             "controller" => "projects",
+    //             "action"     => "profile",
+    //             "params"     => [$data['project_id']]
+    //         ]
+    //     );
+    // }
 
     /**
      * API call for retrieving a particular record by id.
@@ -69,39 +93,45 @@ class WorkflowsController extends ControllerBase
     public function getAction($id)
     {
         $workflow = Workflow::findById($id);
+        if (!$workflow) {
+            $this->flash->error("Workflow was not found.");
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "projects",
+                    "action"     => "profile",
+                    "params"     => [$data['project_id']]
+                ]
+            );
+        }
+
         $this->response->setJsonContent($workflow);
         $this->response->send();
         exit;
     }
 
-    /**
-     * API call for updating an existing record on display.
-     */
     public function saveAction()
     {
-        $data['id'] = $this->request->getPost('id');
-        $data['name'] = $this->request->getPost('name');
-        $data['description'] = $this->request->getPost('description');
-        $data['project_id'] = $this->request->getPost('project_id');
-           
-        $workflow = Workflow::findFirstById($data['id']);    
-        $this->flash->success("Workflow " . $workflow->name . " was updated successfully.");       
+        $data = $this->request->getPost();
+        $workflow = Workflow::findFirstById($data['id']); 
 
         $form = new WorkflowForm($workflow);
         if (!$form->isValid($data, $workflow)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
-            exit;
+            return false;
         }
 
         if ($workflow->save() == false) {
             foreach ($workflow->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flashSession->error($message);
             }
-            exit;
+            return false;
         }
          
+        $this->flashSession->success("Workflow " . $workflow->name . " was updated successfully.");    
+
+        return $this->response->redirect('projects/profile/' . $data['project_id']);
         // return $this->dispatcher->forward(
         //     [
         //         "controller" => "projects",

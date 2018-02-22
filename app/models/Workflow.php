@@ -14,6 +14,13 @@ class Workflow extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     * @Column(type="integer", length=2, nullable=true)
+     */
+    public $order;
+
+    /**
+     *
      * @var string
      * @Column(type="string", length=45, nullable=false)
      */

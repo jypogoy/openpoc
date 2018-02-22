@@ -13,15 +13,47 @@
     <a class="item" data-tab="7th"><h4><i class="settings icon"></i>Settings</h4></a>
 </div>
 <div class="ui bottom attached active tab segment" data-tab="1st">
+        
     <div class="ui segment">
     <a class="ui blue ribbon label"><i class="random icon"></i>WORK FLOW</a>
     <button class="ui right floated icon small primary button" id="btnAddWorkflow" data-tooltip="Add work flow" data-position="bottom center">
         <i class="plus icon"></i>
     </button>
     <p></p>
-    <div id="workflowListWrapper">
-        <div class="ui active loader"></div>
-    </div>
+    <table class="ui celled striped table sorted_table">
+    <thead class="sorted_head">
+        <tr>
+            <th width="1%"></th>
+            <th class="five wide">NAME</th>
+            <th class="nine wide">DESCRIPTION</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>    
+        <?php $v3853890471iterated = false; ?><?php foreach ($workflows as $workflow) { ?><?php $v3853890471iterated = true; ?>
+        <tr>
+            <td><i class="ellipsis vertical icon move"></i><i class="ellipsis vertical icon move pair"></i></td>
+            <td><?= $workflow->name ?></td>
+            <td><?= $workflow->description ?></td>
+            <td>
+                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow(<?= $workflow->id ?>);">
+                    <i class="edit icon"></i>
+                </a>
+                
+                <a class="ui icon" onclick="del('<?= $workflow->id ?>', '<?= $workflow->name ?>'); return false;" data-tooltip="Delete" data-position="bottom center">
+                    <i class="remove red icon"></i>
+                </a>                                                       
+            </td>
+        </tr> 
+        <?php } if (!$v3853890471iterated) { ?>
+            <tr>
+                <td>No workflows to show...</td>
+            </tr> 
+        <?php } ?>
+    </tbody>
+    </table>
+
+    
 </div>
 
 <div class="ui tiny modal flow">
@@ -31,7 +63,7 @@
     </div>
     <div class="content">  
 
-        <?= $this->tag->form(['workflow/create', 'id' => 'dataForm', 'class' => 'ui form']) ?>
+        <?= $this->tag->form(['', 'id' => 'dataForm_Workflow', 'class' => 'ui form']) ?>
         
             <?php foreach ($form as $element) { ?>
             
@@ -63,7 +95,7 @@
 
 <?= $this->modals->getConfirmation('delete', 'Workflow') ?>
 
-<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>    
+<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>
     <div class="ui segment">
     <a class="ui blue ribbon label"><i class="tag icon"></i>TAGS</a>
     <button class="ui right floated icon small primary button" id="btnAddTag" data-tooltip="Add tag" data-position="bottom center">

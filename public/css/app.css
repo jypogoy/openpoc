@@ -89,3 +89,105 @@ table tbody tr td, table tfoot tr th {
 textarea {
     overflow: hidden;
 }
+
+.move.icon {
+    cursor: move;
+    color: #292929;
+}
+
+.move.pair.icon
+{
+    position: relative;
+    display: block;    
+    
+    /* This makes an outline */
+    text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+
+    opacity: 1 !important;
+
+    /* On top */
+    z-index: 100 !important;
+
+    margin-top: -20px !important;    
+    margin-left: 8px !important;
+}
+
+.overlay.icon
+{
+    position: relative;
+    display: block;
+    font-size: 18px !important;
+    width: 18px !important;
+
+    /* This makes an outline */
+    text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+
+    opacity: 1 !important;
+
+    /* On top */
+    z-index: 100 !important;
+
+}
+
+.overlay.bottom.icon {
+    margin-top: -15px !important;    
+}
+
+.overlay.right.icon {
+    margin-left: 14px !important;
+}
+
+.overlay.top.icon {
+    margin-top: -34px !important;
+}
+
+.overlay.centered.icon {
+    margin-top: -25px !important;
+    margin-left: 10px !important;
+}
+
+.sorted_table tr.placeholder:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left-color: red;
+    margin-top: -5px;
+    left: -5px;
+    border-right: none; 
+}
+
+.sorted_head th {
+    cursor: pointer; 
+}
+  
+.sorted_head th.placeholder {
+    display: block;
+    background: red;
+    position: relative;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0; 
+}
+
+.sorted_head th.placeholder:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: red;
+    top: -6px;
+    margin-left: -5px;
+    border-bottom: none; 
+}

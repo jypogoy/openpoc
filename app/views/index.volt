@@ -10,6 +10,8 @@
         {{ get_title() }}
         {{ stylesheet_link('css/bootstrap.min.css') }}
         {{ stylesheet_link('semantic/semantic.min.css') }}
+        {{ stylesheet_link('jqueryui/jquery-ui.min.css') }}
+        {{ stylesheet_link('jqueryui/jquery-ui.structure.css') }}
         {{ stylesheet_link('toastr/toastr.min.css') }}
         {{ stylesheet_link('css/app.css') }}
         
@@ -22,8 +24,10 @@
     </head>
     <body>
         {{ javascript_include('js/jquery-3.3.1.min.js') }}        
-        {{ content() }}
+        {{ content() }}        
         {{ javascript_include('semantic/semantic.min.js') }}
+        {{ javascript_include('jqueryui/jquery-ui.min.js') }}       
+        {{ javascript_include('js/jquery-sortable.js') }} 
         {{ javascript_include('toastr/toastr.min.js') }}
         {#{ javascript_include('snackbar/snackbar.min.js') }#}
         {{ javascript_include('js/app.js') }}
