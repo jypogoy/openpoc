@@ -100,15 +100,6 @@ textarea {
     position: relative;
     display: block;    
     
-    /* This makes an outline */
-    text-shadow:
-    -1px -1px 0 #fff,
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;
-
-    opacity: 1 !important;
-
     /* On top */
     z-index: 100 !important;
 
@@ -193,5 +184,5 @@ textarea {
 }
 
 .highlight {
-    background-color: #a8cb17;
+    background-color: #cedf8b;
  }

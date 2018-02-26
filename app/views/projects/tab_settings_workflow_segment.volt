@@ -66,7 +66,7 @@
     </div>
     <div class="content">  
 
-        {{ form('', 'id' : 'dataForm_Workflow', 'class' : 'ui form') }}
+        {{ form('', 'id' : 'dataForm_Workflow', 'class' : 'ui form', 'autocomplete' : 'off') }}
        
             {% for element in form %}
                 

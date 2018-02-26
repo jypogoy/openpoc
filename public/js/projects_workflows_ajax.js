@@ -2,7 +2,7 @@ $(function () {
     
     loadWorkflowList();    
 
-    // Sortable rows
+    // Sortable rows. See jquery-sortable.js
     $( ".sorted_table").sortable({
         containerSelector: 'table',
         itemPath: '> tbody',
@@ -58,18 +58,18 @@ function loadWorkflowList() {
             const rec = data[i];
             $('#workflowTable tbody').append(
                 '<tr>' +
-                '<td><i class="ellipsis vertical icon move"></i><i class="ellipsis vertical icon move pair"></i></td>' +
+                '<td><div data-tooltip="Move" data-position="right center"><i class="ellipsis vertical icon move"></i><i class="ellipsis vertical icon move pair"></i></div></td>' +
                 '<td>' + rec.name + '</td>' + 
                 '<td>' + rec.description + '</td>' + 
                 '<td>' +
                     '<a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow(' + rec.id + ');">' +
                         '<i class="edit icon"></i>' +
                     '</a>' +
-                    '<a class="ui icon" onclick="del(\'' + rec.id + '\', \'' + rec.name + '\'); return false;" data-tooltip="Delete" data-position="bottom center">' +
+                    '<a class="ui icon" onclick="del(this, \'' + rec.id + '\', \'' + rec.name + '\'); return false;" data-tooltip="Delete" data-position="bottom center">' +
                         '<i class="remove red icon"></i>' +
                     '</a>' +
                 '</td>' +
-                '</tr>');
+                '</tr>');                                              
         }    
         
         if (data.length == 0) {
@@ -118,7 +118,7 @@ function saveWorkflow(isSaveNew) {
             toastr.success(msg);
             if (isSaveNew) {
                 clear(); // See form.js
-                $('#project_id').val(projectId); // Fill project if save and new                
+                $('#project_id').val(projectId); // Fill project if save and new                                          
             } else {                
                 modals.hideWorkflow();
             }
@@ -131,7 +131,7 @@ function saveWorkflow(isSaveNew) {
     }    
 }
 
-function del(id, name) {
+function del(actionEl, id, name) {
 
     $('.custom-text').html('<p>Are you sure you want to delete workflow <strong>' + name + '</strong>? Click OK to proceed.</p>');
 
@@ -148,16 +148,12 @@ function del(id, name) {
             $.post(action, function (msg) {  
                 // Do nothing...      
             })
-            .done(function (msg) {
-                toastr.success(msg);                
-                var row = $(this).closest('tr');
-                alert();
+            .done(function (msg) {                               
+                var row = $(actionEl).closest('tr');
                 row.effect('highlight', {}, 500, function(){
-                    alert(1);
                     $(this).fadeOut('fast', function(){
-                        alert(2);
+                        toastr.success(msg); 
                         $(this).remove();
-                        //loadWorkflowList();
                     });
                 });                
             })

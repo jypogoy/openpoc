@@ -30,7 +30,8 @@ var Form = {
         return isValid;
     },
     setFocus: function () {
-        $("form input:text, input:password, textarea").first().focus(); 
+        //$("form input:text, input:password, textarea").first().focus(); 
+        $('form').find("input:visible:first").focus(); 
     },
     getValues: function () {
         
