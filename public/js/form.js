@@ -1,5 +1,5 @@
 $(function () {
-    $("form input:text, input:password, textarea").first().focus();
+    Form.setFocus();
     $("form .alert").hide();
 });
 
@@ -29,6 +29,9 @@ var Form = {
         if (!isAjax) $("form")[0].submit();          
         return isValid;
     },
+    setFocus: function () {
+        $("form input:text, input:password, textarea").first().focus(); 
+    },
     getValues: function () {
         
     }
@@ -42,5 +45,6 @@ function clear() { //TODO Add reset for numeric and combobox.
         $("#" + el.id + "_alert").addClass('hidden');
         $("#" + el.id + "_alert").removeClass('visible');
     }); 
-    $("form input:text, input:password, textarea").first().focus(); 
+    Form.setFocus();
 }
+

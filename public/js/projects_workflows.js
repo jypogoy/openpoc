@@ -1,6 +1,4 @@
 $(function () {
-    //loadWorkflowList();
-
     // Sortable rows
     $( ".sorted_table").sortable({
         containerSelector: 'table',
@@ -46,18 +44,6 @@ $(function () {
         modals.showWorkflow();
     });
 });
-
-function loadWorkflowList() {
-    $.get('../../workflows/listbyproject/' + $('#projectId').val(), function (data) {    
-        $('#workflowListWrapper').html(data);
-    })
-    .done(function (msg) {
-        // Do nothing...
-    })
-    .fail(function (xhr, status, error) {
-        toastr.error(error);
-    });
-}
 
 function editWorkflow(id) {
     clear(); // See form.js

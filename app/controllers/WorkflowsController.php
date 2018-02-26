@@ -86,6 +86,29 @@ class WorkflowsController extends ControllerBase
     //     );
     // }
 
+    public function ajaxCreateAction()
+    {
+        $data = $this->request->getPost();        
+
+        $workflow = new Workflow();
+        $form = new WorkflowForm($workflow);
+        if (!$form->isValid($data, $workflow)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+            exit;
+        }
+
+        if ($workflow->save() == false) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+            exit;
+        }
+                
+        return "Workflow " . $data['name'] . " was created successfully.";  
+    }    
+
     /**
      * API call for retrieving a particular record by id.
      * @param int $id
@@ -107,6 +130,30 @@ class WorkflowsController extends ControllerBase
         $this->response->setJsonContent($workflow);
         $this->response->send();
         exit;
+    }
+
+    public function ajaxSaveAction()
+    {
+        $data = $this->request->getPost();
+        $workflow = Workflow::findFirstById($data['id']); 
+        $successMsg = "Workflow " . $workflow->name . " was updated successfully.";  
+
+        $form = new WorkflowForm($workflow);
+        if (!$form->isValid($data, $workflow)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+            exit;
+        }
+
+        if ($workflow->save() == false) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+            exit;
+        }
+                
+        return $successMsg;
     }
 
     public function saveAction()
@@ -172,15 +219,45 @@ class WorkflowsController extends ControllerBase
         return $this->response->redirect("projects/profile/" . $workflow->project_id);
     }
 
+    public function ajaxDeleteAction($id)
+    {
+        $workflow = Workflow::findFirstById($id); 
+        if (!$workflow) {
+            $this->flashSession->error("Workflow was not found.");
+            return $this->response->redirect('projects');
+        }
+
+        $successMsg = "Workflow " . $workflow->name . " was deleted successfully.";  
+
+        if (!$workflow->delete()) {
+            foreach ($workflow->getMessages() as $message) {
+                $this->flashSession->error($message);
+            }
+            exit;
+        }
+                
+        return $successMsg;
+    }
+
     /**
      * API call that retrieves workflow records for a project.
      * @param int $projectId
      */
     public function listByProjectAction($projectId)
     {
-        $workflows = Workflow::find();
-        $this->view->workflows = $workflows;
-        $this->view->setTemplateAfter('content');
+        $this->view->disable();
+
+        $parameters = $this->persistent->parameters;
+        if (!is_array($parameters)) {
+            $parameters = [];
+        }
+        $parameters["conditions"] = "project_id = " . $projectId;
+        
+        $workflows = Workflow::find($parameters);
+        // $this->view->workflows = $workflows;
+        // $this->view->setTemplateAfter('content');
+        $this->response->setJsonContent($workflows);
+        $this->response->send();        
     }
 }
 

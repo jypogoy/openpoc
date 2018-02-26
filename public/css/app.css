@@ -113,7 +113,7 @@ textarea {
     z-index: 100 !important;
 
     margin-top: -20px !important;    
-    margin-left: 8px !important;
+    margin-left: 5px !important;
 }
 
 .overlay.icon
@@ -191,3 +191,7 @@ textarea {
     margin-left: -5px;
     border-bottom: none; 
 }
+
+.highlight {
+    background-color: #a8cb17;
+ }

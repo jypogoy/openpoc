@@ -1,5 +1,5 @@
 $(function () {
-    $('.menu .item').tab();    
+    $('.menu .item').tab({ history: false });    
 
     $('#btnAddTag').on('click', function () {
         $('.ui.tiny.modal.tag')

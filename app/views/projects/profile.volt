@@ -1,5 +1,3 @@
-{{ alert.getRedirectMessage() }}
-
 <h2>Project {{ project.name }}</h2>
 {{ hidden_field('id', 'id' : 'projectId', 'value' : project.id) }}
 
@@ -13,8 +11,8 @@
     <a class="item" data-tab="7th"><h4><i class="settings icon"></i>Settings</h4></a>
 </div>
 <div class="ui bottom attached active tab segment" data-tab="1st">
-    {#% include 'projects/tab_settings_workflow_segment.volt' %#}    
-    {% include 'projects/tab_settings_workflow.volt' %}
+    {% include 'projects/tab_settings_workflow_segment.volt' %}    
+    {#% include 'projects/tab_settings_workflow.volt' %#}
     {% include 'projects/tab_settings_tags.volt' %}
     {% include 'projects/tab_settings_colors.volt' %}
 </div>
@@ -36,5 +34,7 @@
 <div class="ui bottom attached tab segment" data-tab="7th">
     66454
 </div>
+
+{{ alert.getRedirectMessage() }}
 
 {{ javascript_include('js/projects_profile.js') }}

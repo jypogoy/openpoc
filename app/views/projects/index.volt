@@ -1,5 +1,3 @@
-{{ alert.getRedirectMessage() }}
-
 <h2>Projects</h2>
 
 <form class="ui form" id="listForm" action="projects" method="post">
@@ -62,6 +60,7 @@
     </tfoot>
 </table>
 
+{{ alert.getRedirectMessage() }}
 {{ modals.getConfirmation('delete', 'Project') }}
 
 <div class="ui active loader"></div>

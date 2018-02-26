@@ -33,7 +33,7 @@
         </tr> 
         {% else %}
             <tr>
-                <td>No workflows to show...</td>
+                <td colspan="4">No workflows to show...</td>
             </tr> 
         {% endfor %}
     </tbody>
