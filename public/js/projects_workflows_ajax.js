@@ -3,12 +3,12 @@ $(function () {
     loadWorkflowList();    
 
     // Sortable rows. See jquery-sortable.js
-    $( ".sorted_table").sortable({
-        containerSelector: 'table',
-        itemPath: '> tbody',
-        itemSelector: 'tr',
-        placeholder: '<tr class="placeholder"/>'
-    });
+    // $( ".sorted_table").sortable({
+    //     containerSelector: 'table',
+    //     itemPath: '> tbody',
+    //     itemSelector: 'tr',
+    //     placeholder: '<tr class="placeholder"/>'
+    // });
 
     // Sortable column heads
     var oldIndex;
@@ -85,6 +85,7 @@ function loadWorkflowList() {
 }
 
 function editWorkflow(id) {
+    alert();
     clear(); // See form.js
     $.post('../../workflows/get/' + id, function (data) {
         $('form *').filter(':input').each(function () {

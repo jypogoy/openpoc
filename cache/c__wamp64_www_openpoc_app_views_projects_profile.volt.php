@@ -1,57 +1,58 @@
-<?= $this->alert->getRedirectMessage() ?>
-
 <h2>Project <?= $project->name ?></h2>
+<button class="ui right floated icon small primary button" id="btnAddWorkflow" data-tooltip="Add work flow" data-position="bottom center">
+        <i class="plus icon"></i>
+    </button>
+
+
 <?= $this->tag->hiddenField(['id', 'id' => 'projectId', 'value' => $project->id]) ?>
 
 <div class="ui top attached tabular menu">
-    <a class="active item" data-tab="1st"><h4><i class="snowflake icon"></i>Project Plan</h4></a>
-    <a class="item" data-tab="2nd"><h4><i class="checkmark icon"></i>Assessment</h4></a>
-    <a class="item" data-tab="3rd"><h4><i class="alarm outline icon"></i>Risks</h4></a>
-    <a class="item" data-tab="4th"><h4><i class="tasks icon"></i>Activities</h4></a>
-    <a class="item" data-tab="5th"><h4><i class="address card outline icon"></i>Resources</h4></a>
-    <a class="item" data-tab="6th"><h4><i class="calendar icon"></i>Timeline</h4></a>
-    <a class="item" data-tab="7th"><h4><i class="settings icon"></i>Settings</h4></a>
+    <a class="item active" data-tab="board"><h4><i class="clipboard icon"></i>Board</h4></a>
+    <a class="item" data-tab="settings"><h4><i class="settings icon"></i>Settings</h4></a>    
 </div>
-<div class="ui bottom attached active tab segment" data-tab="1st">
-        
+<div class="ui bottom attached active tab segment" data-tab="board">
+    
+    <div class="ui grid">
+        <div class="four wide column">
+             
+            <div class="html ui top attached segment"><div class="ui piled segment">
+      <h4 class="ui header">A header</h4>
+      <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
+
+      <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
+
+      <p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>
+    </div><div class="ui top attached label">Example <i data-content="Copy code" class="copy link icon"></i></div></div>
+
+        </div>
+    </div>       
+
+
+<?= $this->tag->javascriptInclude('js/projects_board_ajax.js') ?>  
+</div>
+<div class="ui bottom attached tab segment" data-tab="settings">
     <div class="ui segment">
     <a class="ui blue ribbon label"><i class="random icon"></i>WORK FLOW</a>
     <button class="ui right floated icon small primary button" id="btnAddWorkflow" data-tooltip="Add work flow" data-position="bottom center">
         <i class="plus icon"></i>
     </button>
     <p></p>
-    <table class="ui celled striped table sorted_table">
-    <thead class="sorted_head">
-        <tr>
-            <th width="1%"></th>
-            <th class="five wide">NAME</th>
-            <th class="nine wide">DESCRIPTION</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>    
-        <?php $v3853890471iterated = false; ?><?php foreach ($workflows as $workflow) { ?><?php $v3853890471iterated = true; ?>
-        <tr>
-            <td><i class="ellipsis vertical icon move"></i><i class="ellipsis vertical icon move pair"></i></td>
-            <td><?= $workflow->name ?></td>
-            <td><?= $workflow->description ?></td>
-            <td>
-                <a class="ui icon" data-tooltip="Edit" data-position="bottom center" onclick="editWorkflow(<?= $workflow->id ?>);">
-                    <i class="edit icon"></i>
-                </a>
-                
-                <a class="ui icon" onclick="del('<?= $workflow->id ?>', '<?= $workflow->name ?>'); return false;" data-tooltip="Delete" data-position="bottom center">
-                    <i class="remove red icon"></i>
-                </a>                                                       
-            </td>
-        </tr> 
-        <?php } if (!$v3853890471iterated) { ?>
+    <div id="workflowListWrapper">
+        <div class="ui active loader"></div>
+        <table id="workflowTable" class="ui celled striped table sorted_table">
+        <thead class="sorted_head">
             <tr>
-                <td>No workflows to show...</td>
-            </tr> 
-        <?php } ?>
-    </tbody>
-    </table>
+                <th width="1%"></th>
+                <th class="five wide">NAME</th>
+                <th class="nine wide">DESCRIPTION</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>                
+            
+        </tbody>
+        </table>
+    </div>
 
     
 </div>
@@ -63,12 +64,12 @@
     </div>
     <div class="content">  
 
-        <?= $this->tag->form(['', 'id' => 'dataForm_Workflow', 'class' => 'ui form']) ?>
-        
+        <?= $this->tag->form(['', 'id' => 'dataForm_Workflow', 'class' => 'ui form', 'autocomplete' => 'off']) ?>
+       
             <?php foreach ($form as $element) { ?>
-            
+                
                 <?php if (is_a($element, 'Phalcon\Forms\Element\Hidden')) { ?>
-                    <?= $element ?>
+                    <?= $element ?>           
                 <?php } else { ?>
                     <div id="<?= $element->getName() ?>_div" class="<?= ($this->length($element->getValidators()) > 0 ? 'required' : '') ?> field">
                         <?= $element->label() ?>
@@ -79,23 +80,30 @@
             <?php } ?>
 
             <div class="ui error message"></div>
-
+            
             <?= $this->tag->hiddenField(['saveNew', 'id' => 'saveNew']) ?>
 
             
-
+            
         </form>
     </div>
     <div class="actions">
-        <div class="ui primary button" onclick="saveWorkflow(false);">Save</div>
-        <div class="ui teal button" onclick="saveWorkflow(true);">Save & New</div>
-        <div class="ui negative button">Cancel</div>        
+        <div id="editActions">
+            <div class="ui primary button" onclick="saveWorkflow(false);">Save changes</div>
+            <div class="ui negative button">Cancel</div>        
+        </div>
+        <div id="newActions">
+            <div class="ui primary button" onclick="saveWorkflow(false);">Save</div>
+            <div class="ui teal button" onclick="saveWorkflow(true);">Save & New</div>
+            <div class="ui negative button">Cancel</div>        
+        </div>    
     </div>
 </div>
 
 <?= $this->modals->getConfirmation('delete', 'Workflow') ?>
 
-<?= $this->tag->javascriptInclude('js/projects_workflows.js') ?>
+<?= $this->tag->javascriptInclude('js/projects_workflows_ajax.js') ?>    
+    
     <div class="ui segment">
     <a class="ui blue ribbon label"><i class="tag icon"></i>TAGS</a>
     <button class="ui right floated icon small primary button" id="btnAddTag" data-tooltip="Add tag" data-position="bottom center">
@@ -211,23 +219,7 @@
     </div>
 </div>
 </div>
-<div class="ui bottom attached tab segment" data-tab="2nd">
-  Second
-</div>
-<div class="ui bottom attached tab segment" data-tab="3rd">
-  Third
-</div>
-<div class="ui bottom attached tab segment" data-tab="4th">
-  Third
-</div>
-<div class="ui bottom attached tab segment" data-tab="5th">
-  Third
-</div>
-<div class="ui bottom attached tab segment" data-tab="6th">
-  Third
-</div>
-<div class="ui bottom attached tab segment" data-tab="7th">
-    66454
-</div>
+
+<?= $this->alert->getRedirectMessage() ?>
 
 <?= $this->tag->javascriptInclude('js/projects_profile.js') ?>

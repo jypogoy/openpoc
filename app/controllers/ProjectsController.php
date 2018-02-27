@@ -375,5 +375,39 @@ class ProjectsController extends ControllerBase
         $this->view->form = $form;
         $this->view->setTemplateAfter('project');
     }
+
+    public function settingsAction($id)
+    {
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project was not found.");
+            return $this->response->redirect('projects');
+        }
+
+        $workflows = Workflow::findByProjectId($id);  
+        $form = new WorkflowForm(new Workflow(), array('edit' => true));
+
+        $this->view->project = $project;
+        $this->view->workflows = $workflows;
+        $this->view->form = $form;
+        $this->view->setTemplateAfter('project');
+    }
+
+    public function boardAction($id)
+    {
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project was not found.");
+            return $this->response->redirect('projects');
+        }
+
+        $workflows = Workflow::findByProjectId($id);  
+        $form = new WorkflowForm(new Workflow(), array('edit' => true));
+
+        $this->view->project = $project;
+        $this->view->workflows = $workflows;
+        $this->view->form = $form;
+        $this->view->setTemplateAfter('project');
+    }
 }
 

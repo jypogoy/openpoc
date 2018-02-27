@@ -251,13 +251,19 @@ class WorkflowsController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["conditions"] = "project_id = " . $projectId;
+        $parameters['conditions'] = "project_id = " . $projectId;
+        $parameters['order'] = "sequence ASC";
         
         $workflows = Workflow::find($parameters);
         // $this->view->workflows = $workflows;
         // $this->view->setTemplateAfter('content');
         $this->response->setJsonContent($workflows);
         $this->response->send();        
+    }
+
+    public function ajaxUpdateOrder()
+    {
+
     }
 }
 

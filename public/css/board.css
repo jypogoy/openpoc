@@ -1,0 +1,22 @@
+.wf-border {
+    border: 1px solid #DADCDC;
+}
+
+.wf-content {
+    margin-top: 5em !important;
+}
+
+.column-header {
+    background-color: #EFF0F1 !important;  
+    border-bottom: 1px solid #DADCDC !important; 
+    font-size: 24pt !important;
+    color: #212121 !important; 
+}
+
+#boardWrapper {
+    margin-top: 1em;
+}
+
+.row-content {
+    padding: 20px 10px 0px 10px;
+}

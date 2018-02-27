@@ -50,7 +50,7 @@ class SecurityPlugin extends Plugin
 				'products'     => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
 				'producttypes' => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
 				'invoices'     => ['index', 'profile'],
-				'projects'	   => ['index', 'new', 'create', 'edit', 'save', 'delete', 'profile'],
+				'projects'	   => ['index', 'new', 'create', 'edit', 'save', 'delete', 'profile', 'board', 'settings'],
 				'workflows'	   => ['get', 'create', 'save', 'delete', 'listbyproject', 'ajaxcreate', 'ajaxsave', 'ajaxdelete']
 			];
 			foreach ($privateResources as $resource => $actions) {
