@@ -14,6 +14,7 @@
         {{ stylesheet_link('jqueryui/jquery-ui.structure.css') }}
         {{ stylesheet_link('toastr/toastr.min.css') }}
         {{ stylesheet_link('css/app.css') }}
+        {{ stylesheet_link('css/card.css') }}
         
         <!-- Snackbar -->
         {#{ stylesheet_link('snackbar/snackbar.min.css') }#}

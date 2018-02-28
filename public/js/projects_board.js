@@ -3,9 +3,12 @@ $(function() {
     // $('.row-content').sortable({
     //     connectWith: ".connectedSortable"
     //   }).disableSelection();
-    $( "#sortable1, #sortable2" ).sortable({
+    $('[id^="sortable_"]').sortable({
+        cursor: 'move',
         connectWith: ".connectedSortable"
     }).disableSelection();
+
+    $('.ui.dropdown').dropdown();
 });
 
 function loadWorkflowList() {    

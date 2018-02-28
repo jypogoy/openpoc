@@ -85,7 +85,6 @@ function loadWorkflowList() {
 }
 
 function editWorkflow(id) {
-    alert();
     clear(); // See form.js
     $.post('../../workflows/get/' + id, function (data) {
         $('form *').filter(':input').each(function () {

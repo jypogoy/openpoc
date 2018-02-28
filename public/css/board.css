@@ -17,10 +17,23 @@
     margin-top: 1em;
 }
 
+[id^='sortable_'] {
+    list-style-type: none;
+    width: 100%;
+    min-height: 600px;    
+    padding: 5px;
+    float: left;
+}
+[id^='sortable_'] li {
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
 .row-content {
     padding: 20px 10px 0px 10px;
 }
 
-.scontent {
-    border: 1px solid blue;
+.card {
+    width: 100% !important;
 }
