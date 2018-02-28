@@ -20,3 +20,7 @@
 .row-content {
     padding: 20px 10px 0px 10px;
 }
+
+.scontent {
+    border: 1px solid blue;
+}

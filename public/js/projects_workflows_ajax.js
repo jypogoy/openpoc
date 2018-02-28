@@ -151,12 +151,7 @@ function del(actionEl, id, name) {
             })
             .done(function (msg) {                               
                 var row = $(actionEl).closest('tr');
-                row.effect('highlight', {}, 500, function(){
-                    $(this).fadeOut('fast', function(){
-                        toastr.success(msg); 
-                        $(this).remove();
-                    });
-                });                
+                highlightOnDelete(row);              
             })
             .fail(function (xhr, status, error) {
                 toastr.error(error);
