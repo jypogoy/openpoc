@@ -38,7 +38,7 @@
             <td>{{ item.description }}</td>
             <td>
                 <a href="projects/board/{{ item.id }}" data-tooltip="Open Board" data-position="bottom center">
-                    <i class="tasks icon"></i>
+                    <i class="columns icon"></i>
                 </a>
                 <a href="projects/settings/{{ item.id }}" data-tooltip="Settings" data-position="bottom center">
                     <i class="settings icon"></i>
